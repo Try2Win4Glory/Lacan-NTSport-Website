@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://media.discordapp.net/attachments/807610389067857920/807611559605305344/Official_Lacan_NTSport_Logo.png"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Meet LNS Dev Team" />
+    <meta name="author" content="LNS" />
+    <meta
+      property="og:image"
+      content="https://media.discordapp.net/attachments/807610389067857920/807611559605305344/Official_Lacan_NTSport_Logo.png"
+    />
+    <meta property="og:url" content="https://LNS-Website.a1sauces.repl.co/team" />
+    <meta name="theme-color" content="#0000FF" />
+    <title>LNS - Team</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fe5629e38b.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body oncontextmenu="return false">
+    <header class="text-gray-400 bg-gray-900 body-font">
+      <div
+        class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+      >
+        <a
+          class="flex title-font font-medium items-center text-white mb-4 md:mb-0"
+        >
+          <img
+            src="https://media.discordapp.net/attachments/807610389067857920/807611559605305344/Official_Lacan_NTSport_Logo.png"
+            width="40"
+            height="40"
+          />
+        </a>
+        <nav
+          class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"
+        >
+          <a href="/" class="mr-5 hover:text-white">Home</a>
+          <a href="/commands" class="mr-5 hover:text-white">Commands</a>
+          <a href="/invite" class="mr-5 hover:text-white">Invite LNS</a>
+          <a href="/support" class="mr-5 hover:text-white">Support Server</a>
+          <a href="/privacy" class="mr-5 hover:text-white">Privacy Policy</a>
+          <a href="#" class="mr-5 hover:text-white">About Us</a>
+        </nav>
+                           {% if not logged_in %}
+        <a href="/veryencryptedapiendpoint/logout" class="svelte-1wqnw5n"><button class="svelte-1wqnw5n"><i class="fa fa-sign-in"></i>
+                        Logout</button></a>
+        {% else %}
+
+        <div class="dropdown" style="float: right">
+        <a href="dashboard" class="svelte-1wqnw5n"><button class="svelte-1wqnw5n"><i class="fa fa-sign-in"></i>
+                        Dashboard</button></a>
+ 
+        {% endif %}
+      </div>
+    </header>
+    <hr />
+    <section class="text-gray-400 bg-gray-900 body-font">
+      <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-col text-center w-full mb-20">
+          <h1
+            class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white"
+          >
+            LNS's Dev team
+          </h1>
+        </div>
+        <div class="flex flex-wrap -m-4">
+          <div class="p-4 lg:w-1/2">
+            <div
+              class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left"
+            >
+              <img
+                alt="team"
+                class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
+                src="https://cdn.discordapp.com/embed/avatars/0.png" style="border-radius: 500px"
+              />
+              <div class="flex-grow sm:pl-8">
+                <h2 class="title-font font-medium text-lg text-white">
+                  adl212
+                </h2>
+                <h3 class="text-gray-500 mb-3">
+                  Main Dev - Retired
+                </h3>
+                <span class="inline-flex">
+                  <a
+                    href="https://github.com/adl212"
+                    class="ml-2 text-gray-500"
+                  >
+                    <i class="fab fa-github"> </i>
+                  </a>
+                  <a
+                    href="https://discord.com/users/661501985517862972"
+                    class="ml-2 text-gray-500"
+                  >
+                    <i class="fab fa-discord"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/2">
+            <div
+              class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left"
+            >
+              <img
+                alt="team"
+                class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
+                src="https://cdn.discordapp.com/avatars/505338178287173642/f5cd400f4cef3d860a86c47780bf6885.webp" style="border-radius: 500px"
+              />
+              <div class="flex-grow sm:pl-8">
+                <h2 class="title-font font-medium text-lg text-white">
+                  ⚡Try2Win4Glory⚡#1101
+                </h2>
+                <h3 class="text-gray-500 mb-3">Owner/ Main Dev / Logo Designer</h3>
+                <span class="inline-flex">
+                  <a
+                    href="https://github.com/Try2Win4Glory/Lacan-NTSport"
+                    class="ml-2 text-gray-500"
+                  >
+                    <i class="fab fa-github"> </i>
+                  </a>
+                  <a
+                    href="https://discord.com/users/505338178287173642"
+                    class="ml-2 text-gray-500"
+                  >
+                    <i class="fab fa-discord"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/2">
+            <div
+              class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left"
+            >
+              <img
+                alt="team"
+                class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
+                src="https://cdn.discordapp.com/avatars/724772394748870718/0e014dd26c46875cac2da9ede71b6f70.webp" style="border-radius: 500px"
+              />
+              <div class="flex-grow sm:pl-8">
+                <h2 class="title-font font-medium text-lg text-white">
+                  Malakai#6395
+                </h2>
+                <h3 class="text-gray-500 mb-3">Helper / Bot Dev</h3>
+                <span class="inline-flex">
+                  <a
+                    href="https://discord.com/users/724772394748870718"
+                    class="ml-2 text-gray-500"
+                  >
+                    <i class="fab fa-discord"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/2">
+            <div
+              class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left"
+            >
+              <img
+                alt="team"
+                class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
+                src="https://cdn.discordapp.com/embed/avatars/4.png" style="border-radius: 500px"
+              />
+              <div class="flex-grow sm:pl-8">
+                <h2 class="title-font font-medium text-lg text-white">
+                  Vib#0454
+                </h2>
+                <h3 class="text-gray-500 mb-3">Helper</h3>
+                <span class="inline-flex">
+                  
+                  <a
+                    href="https://discord.com/users/703447530779967500"
+                    class="ml-2 text-gray-500"
+                  >
+                    <i class="fab fa-discord"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/2">
+            <div
+              class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left"
+            >
+              <img
+                alt="team"
+                class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
+                src="https://cdn.discordapp.com/avatars/153316717190316032/a_d2f6b4ccc91e5ac6c51d320a0c3f3a17.gif?size=1024" style="border-radius: 500px"
+              />
+              <div class="flex-grow sm:pl-8">
+                <h2 class="title-font font-medium text-lg text-white">
+                  Jacob#1832
+                </h2>
+                <h3 class="text-gray-500 mb-3">Helper</h3>
+                <span class="inline-flex">
+                  
+                  <a
+                    href="https://discord.com/users/153316717190316032"
+                    class="ml-2 text-gray-500"
+                  >
+                    <i class="fab fa-discord"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 lg:w-1/2">
+            <div
+              class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left"
+            >
+              <img
+                alt="team"
+                class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
+                src="https://cdn.discordapp.com/avatars/288735177868443649/a_fdc88198ef1cba128734f81cb3a1d604.gif?size=1024" style="border-radius: 500px"
+              />
+              <div class="flex-grow sm:pl-8">
+                <h2 class="title-font font-medium text-lg text-white">
+                  Tracy#3141
+                </h2>
+                <h3 class="text-gray-500 mb-3">Helper</h3>
+                <span class="inline-flex">
+                  <a
+                    href="https://discord.com/users/288735177868443649"
+                    class="ml-2 text-gray-500"
+                  >
+                    <i class="fab fa-discord"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-gray-400 bg-gray-900 body-font">
+      <div
+        class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col"
+      >
+        <a
+          class="flex title-font font-medium items-center md:justify-start justify-center text-white"
+        >
+          <img
+            src="https://media.discordapp.net/attachments/925374235797495829/939515277232734288/Lacan_Logo_Transparent.png" style="border-radius: 500px"
+            width="40"
+            height="40"
+          />
+          <span class="ml-3 text-xl">LNSport</span>
+        </a>
+        <p
+          class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4"
+        >
+          © 2022 All Rights Reserved. @Lacan NTSport Team
+        </p>
+        <span
+          class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+        >
+          <a href="https://github.com/Try2Win4Glory/Lacan-NTSport" class="ml-3 text-gray-400">
+            <i class="fab fa-github"></i>
+          </a>
+          <a
+            href="https://top.gg/bot/713352863153258556/vote"
+            class="ml-3 text-gray-400"
+          >
+            <i class="fab fa-discord"></i>
+          </a>
+        </span>
+      </div>
+    </footer>
+    <noscript>
+      Please enable JavaScript in your browser, to view this page properly!
+    </noscript>
+  </body>
+</html>
+
+<style>
+    a.svelte-1wqnw5n.svelte-1wqnw5n {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    display: block;
+    text-decoration: none;
+    padding: 10px 0.5em;
+    border-radius: 7px;
+    background-color: gray;
+}
+
+.dropdown.svelte-1wqnw5n .dropbtn.svelte-1wqnw5n {
+    font-size: 16px;
+    color: white;
+    background-color: inherit;
+    font-family: inherit;
+    box-shadow: none;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+    padding: 14px 16px;
+    margin: 0px;
+}
+
+.dropdown.svelte-1wqnw5n.svelte-1wqnw5n {
+    float: left;
+    overflow: hidden;
+}
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>

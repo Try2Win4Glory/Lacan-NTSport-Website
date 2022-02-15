@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+   <style>
+      html,body {
+      margin:0;
+      padding:0;
+      overflow-x:hidden;
+      }
+   </style>
+   <head>
+      <link
+         rel="shortcut icon"
+         type="image/png"
+         href="https://media.discordapp.net/attachments/807610389067857920/807611559605305344/Official_Lacan_NTSport_Logo.png"
+         />
+      <title>LNS - Create Comp</title>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="List of all the available commands" />
+      <meta name="author" content="LNS" />
+      <meta
+         property="og:image"
+         content="https://cdn.discordapp.com/avatars/713352863153258556/a45b3b02f57e653a9229dc4e245662e5.webp"
+         />
+      <meta property="og:url" content="https://LNS-Website.a1sauces.repl.co/commands" />
+      <meta name="theme-color" content="#0000FF" />
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+background-color: black;
+}
+   a:hover {
+        color: red;
+    }
+    a:visited {
+        color: green;
+    }
+    
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+  width: 80%;
+  height: 80%;
+  margin-left: 135px;
+  margin-top: 135px;
+  border-radius: 7px;
+  
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=number] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: center;
+  cursor: pointer;
+  height: 80%;
+  width: 100%;
+  border-radius: 7px;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+</style>
+</head>
+<body>
+
+<form action="/veryencryptedapiendpoint/team-comp/create" method="post">
+  <div class="container">
+    <h1><center>Create a Team Comp!</center></h1>
+    <hr>
+    <label for="team"><b>Team</b></label>
+    <input type="text" placeholder="" name="team" id="team" required="">
+    <div id="months-container">
+        <input type="radio" name="timetype" value="months" id="months" onchange="on_click()" required>
+        Months
+    </div>
+    <div id="days-container">
+        <input type="radio" name="timetype" value="days" id="days" onchange="on_click()" required>
+        Days
+    </div>
+    <div id="hours-container">
+        <input type="radio" name="timetype" value="hours" id="hours" onchange="on_click()" required>
+        Hours
+    </div>
+    <div id="minutes-container">
+        <input type="radio" name="timetype" value="minutes" id="minutes" onchange="on_click()" required>
+        Minutes
+    </div>
+    <br>
+    <div>
+      <input type="checkbox" name="public-or-private" id="public-or-private" unchecked>
+      Public Competition (Everyone can view the results.)
+    </div>
+    <button type="submit" onclick="public()" class="registerbtn">Create Competition!</button>
+  </div>
+</form>
+
+
+<script>
+    function public() {
+      const public = document.querySelector('#public-or-private');
+      alert(public.checked);
+      if (public.checked == true) {
+        // data['other']['public'] must be set to True
+        alert('x')
+      }
+      else {
+        // data ['other']['public'] must be set to False
+        alert('y')
+      }
+    }
+    function on_click() {
+        thelist = ['months', 'days', 'hours', 'minutes']
+        a = null
+        for (i = 0; i < thelist.length; i++) {
+            x = thelist[i]
+            console.log(x);
+            if (document.getElementById(x).checked) {
+                try {
+                    elem = document.getElementById('timeamount');
+                    elem.remove()
+                }
+                catch{
+
+                }
+                a = x
+                new_element = document.createElement("input")
+                new_element.type = "number"
+                new_element.placeholder = "How many "+x
+                new_element.id = "timeamount"
+                new_element.name = "timeamount"
+                new_element.required = true
+                parentDiv = document.getElementById(x+'-container')
+                parentDiv.appendChild(new_element)
+            }
+            else {
+                try {
+                    elem = document.getElementById('timeamount')
+                    console.log(elem.parentElement.id)
+                    if (elem.parentElement.id == a+"-container") {
+                    }
+                    else {
+                        elem.remove()
+                    }
+                    
+                }
+                catch(err){
+                    continue
+                }
+            }
+        }
+    }
+</script>
+</body></html>

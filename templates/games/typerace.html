@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+   <style>
+      html,body {
+      margin:0;
+      padding:0;
+      overflow-x:hidden;
+      }
+   </style>
+   <head>
+      <link
+         rel="shortcut icon"
+         type="image/png"
+         href="https://media.discordapp.net/attachments/807610389067857920/807611559605305344/Official_Lacan_NTSport_Logo.png"
+         />
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="List of all the available commands" />
+      <meta name="author" content="LNS" />
+      <meta
+         property="og:image"
+         content="https://cdn.discordapp.com/avatars/713352863153258556/a45b3b02f57e653a9229dc4e245662e5.webp"
+         />
+      <meta property="og:url" content="https://LNS-Website.a1sauces.repl.co/commands" />
+      <meta name="theme-color" content="#0000FF" />
+      <title>LNS - Typerace</title>
+      <link
+         href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+         rel="stylesheet"
+         />
+      <script
+         src="https://kit.fontawesome.com/fe5629e38b.js"
+         crossorigin="anonymous"
+         ></script>
+   </head>
+   <body oncontextmenu="return false">
+      <header class="text-gray-400 bg-gray-900 body-font">
+         <div
+            class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+            >
+            <a
+               class="flex title-font font-medium items-center text-white mb-4 md:mb-0"
+               >
+            <img
+               src="https://media.discordapp.net/attachments/807610389067857920/807611559605305344/Official_Lacan_NTSport_Logo.png"
+               width="40"
+               height="40"
+               />
+            </a>
+            <nav
+               class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"
+               >
+               <a href="/" class="mr-5 hover:text-white">Home</a>
+               <a href="#" class="mr-5 hover:text-white">Commands</a>
+               <a href="/invite" class="mr-5 hover:text-white">Invite LNS</a>
+               <a href="/support" class="mr-5 hover:text-white">Support Server</a>
+               <a href="/privacy" class="mr-5 hover:text-white">Privacy Policy</a>
+               <a href="/team" class="mr-5 hover:text-white">About Us</a>
+            </nav>
+                   {% if not logged_in %}
+        <a href="/veryencryptedapiendpoint/logout" class="svelte-1wqnw5n"><button class="svelte-1wqnw5n"><i class="fa fa-sign-in"></i>
+                        Logout</button></a>
+        {% else %}
+
+        <div class="dropdown" style="float: right">
+        <a href="/dashboard" class="svelte-1wqnw5n"><button class="svelte-1wqnw5n"><i class="fa fa-sign-in"></i>
+                        Dashboard</button></a>
+ 
+        {% endif %}
+         </div>
+      </header>
+      <hr />
+
+
+     
+      <section class="text-gray-400 body-font bg-gray-900">
+         <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-20">
+               <div
+                  class="flex flex-wrap w-full mb-20 flex-col items-center text-center"
+                  >
+                  
+
+<section class="test-container">
+  
+  <main class="output"></main>
+  <div class="timer"></div>
+  
+  <div class="word-input">
+    <input class="type-word" type="text">
+    <button class="refresh">↻</button>
+    <div class="count-down">60</div>
+  </div>
+  
+  <div class="result"></div>
+
+  <div class="incorrect"></div>
+</section>  
+
+</div>
+</body>
+</html>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <hr />
+      <footer class="text-gray-400 bg-gray-900 body-font">
+         <div
+            class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col"
+            >
+            <a
+               class="flex title-font font-medium items-center md:justify-start justify-center text-white"
+               >
+            <img
+               src="https://media.discordapp.net/attachments/925374235797495829/939515277232734288/Lacan_Logo_Transparent.png"
+               width="40"
+               height="40"
+               />
+            <span class="ml-3 text-xl">Lacan</span>
+            </a>
+            <p
+               class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4"
+               >
+               © 2022 All Rights Reserved. @Lacan NTSport Team
+            </p>
+            <span
+               class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+               >
+            <a href="https://github.com/Try2Win4Glory/Lacan-NTSport" class="ml-3 text-gray-400">
+            <i class="fab fa-github"></i>
+            </a>
+            <a
+               href="https://top.gg/bot/713352863153258556/vote"
+               class="ml-3 text-gray-400"
+               >
+            <i class="fab fa-discord"></i>
+            </a>
+            </span>
+         </div>
+      </footer>
+      <noscript>
+         Please enable JavaScript in your browser, to view this page properly!
+      </noscript>
+   </body>
+</html>
+
+<style>
+   a.svelte-1wqnw5n.svelte-1wqnw5n {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    display: block;
+    text-decoration: none;
+    padding: 10px 0.5em;
+    border-radius: 7px;
+    background-color: gray;
+}
+
+.dropdown.svelte-1wqnw5n .dropbtn.svelte-1wqnw5n {
+    font-size: 16px;
+    color: white;
+    background-color: inherit;
+    font-family: inherit;
+    box-shadow: none;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+    padding: 14px 16px;
+    margin: 0px;
+}
+
+.dropdown.svelte-1wqnw5n.svelte-1wqnw5n {
+    float: left;
+    overflow: hidden;
+}
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+
+<style>
+.test-container {
+  width: 900px;
+  position: relative;
+  margin: 0 auto;
+}
+.timer {
+  width: 100%;
+  height: 5px;
+  background-color: #55b1fc;
+  top: 0;
+  left: 0;
+  transition: .2s;
+}
+.output {
+  font-size: 25px;
+  position: relative;
+  font-weight: bold;
+  color: black;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  overflow: hidden;
+  margin-top: 60px;
+  line-height: 25px;
+  padding: 10px 0;
+  background-color: white;
+  border-radius: 7px;
+}
+.word {
+  margin-bottom: 5px;
+}
+.word,
+.word-letter{
+  position: relative;
+  transition: .2s;
+}
+.word-letter-anim::before {
+  position: absolute;
+  content: '';
+  background-color: rgba(85, 177, 252, .2);
+  width: 100%;
+  height: 0;
+  left: 0;
+  bottom: 0;
+  animation: grow .2s 1;
+}
+@keyframes grow {
+  0% {
+  }
+  100% {
+    height: 100%;
+  }
+}
+.word-input {
+  display: flex;
+  color: black;
+  border: 1px solid #1b1e21;
+  text-align: left;
+}
+.refresh {
+  outline: none;
+  border: none;
+  background-color: #55b1fc;
+  font-size: 20px;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
+  flex: 1;
+  transition: .2s;
+}
+.word-line {
+  padding-bottom: 8px;
+  width: calc(100% - 12px);
+  margin: 0 auto;
+}
+.type-word {
+  flex: 15;
+  width: calc(100% - 70px);
+  border: none;
+  padding: 5px;
+  outline: none;
+  background-color: #151719;
+  font-size: 25px;
+  font-weight: bold;
+  color: #344354;
+}
+.count-down {
+  flex: 1;
+  text-align: center;
+  line-height: 50px;
+  vertical-align: middle;
+  background-color: #151719;
+  font-size: 14px;
+  color: #fff;
+}
+.result {
+  color: #fff;
+}
+
+</style>
+
+<script>
+  var words = ['this', 'thing', 'sometimes', 'break', 'went', 'can\'t', 'been', 'question', 'quite', 'quit', 'from', 'form', 'forever', 'angry', 'limit', 'lucky', 'hours', 'records', 'oil', 'feed', 'won\'t', 'its', 'it\'s', 'old', 'many', 'place', 'time', 'experience', 'time', 'quest', 'just', 'computer', 'move', 'white', 'green', 'black', 'orange', 'different', 'hour', 'big', 'even', 'mountain', 'been', 'animal', 'long', 'after', 'page', 'tree', 'see', 'seen', 'right', 'left', 'has', 'went', 'above', 'said', 'good', 'long', 'it', 'why', 'that', 'learn', 'girl', 'boy', 'will', 'three', 'before', 'may', 'to', 'fine', 'flower', 'city', 'street'];
+
+var output = document.querySelector('.output');
+var input = document.querySelector('.type-word');
+var error_list = document.querySelector('.incorrect');
+var refresh = document.querySelector('.refresh');
+var counter = document.querySelector('.count-down');
+var result = document.querySelector('.result');
+
+// styling
+var error = 'padding: 5px 10px; color: #fc5558;';
+var error_colour = 'color: #fc5558;';
+var curr_word = 'padding: 0 10px; border-bottom: 2px solid rgba(85, 177, 252, .2); background-color: rgba(85, 177, 252, .1); border-top-right-radius: 2px; border-top-left-radius: 2px;';
+var letter_error = 'color: #fc5558;';
+var correct = 'color: #55b1fc;';
+var padding = 'padding: 5px 10px;';
+var partial = 'color: #9555fc;';
+
+// num of words to output
+wrd_num = 9;
+
+// focus on the input
+input.focus();
+
+// populate word list
+function word_list (line_num, word_num) {
+  // generate words
+  var words_list = [];
+  for (let i = 0; i < line_num; i++) {
+      words_list.push([]);
+    
+    if (words_list.length === line_num) {
+      for (let x = 0; x < words_list.length; x++) {
+        for (let j = 0; j < word_num; j++) {
+          var rand_num = Math.floor(Math.random() * words.length -1) + 1;
+          words_list[x].push(words[rand_num]);
+        }
+      }
+    }
+  }
+  
+  // detect repeats
+  var repeats = [];
+  var search = 0;
+  var line_search = 0;
+  for (let i = 0; i < words_list.length; i++) {
+    repeats.push([]);
+    
+      for (let x = 0; x < words_list[i].length; x++) {
+        if (x === 1) {
+          repeats[i].push(words_list[i].indexOf(words_list[i][search]));
+        }
+        
+        if (x === words_list[i].length -1 && search !== words_list[i].length -1) {
+          search++; 
+          x = 0;
+        }
+      }
+    search = 0;
+  }
+  
+  // reset repeated words
+  for (let i = 0; i < repeats.length; i++) {
+    for (let x = 0; x < repeats[i].length; x++) {
+      var rand_num = Math.floor(Math.random() * words.length -1) + 1;
+      if (repeats[i][x] < x) {
+        words_list[i][x] = words[rand_num];
+      }
+    }
+  }
+  
+  // output words
+  for (let i = 0; i < words_list.length; i++) {
+    var line = document.createElement('div');
+    line.setAttribute('class', 'word-line');
+    
+    for (let x = 0; x < words_list[i].length; x++) {
+      var span = document.createElement('span');
+      span.setAttribute('class', 'word');
+      span.style.cssText = padding;
+      line.appendChild(span);
+      
+      for (let j = 0; j < words_list[i][x].length; j++) {
+        span.innerHTML += '<span class="word-letter">'+words_list[i][x][j]+'</span>';
+      }
+    }
+    
+    output.appendChild(line);
+  }
+
+}
+word_list(3, wrd_num); 
+
+output.querySelectorAll('.word-line')[0].querySelectorAll('.word')[0].style.cssText = curr_word;
+
+// reset the test
+var word_num = 0;
+function reset_test (e) {
+	output.innerHTML = '';
+	word_list(3, wrd_num);
+  input.value = '';
+  input.focus();
+  error_list.innerHTML = '';
+  counter.textContent = '60';
+  var key_pressed = document.onkeydown = init_counter;
+  word_num = 0;
+}
+refresh.addEventListener('click', reset_test);
+
+// typing
+var correct_wrds = 0;
+var letter = 0;
+var correct_letter = 0;
+var incorrect_letter = 0;
+var stroke = 0;
+var letter_stroke = 0;
+var mostly_correct = 0;
+var fully_correct = 0;
+var letter_flow = 0;
+var incorrect_wrd = 0;
+
+function word_check (e) {
+  // word selection and text input
+	var target = e.target;
+  // input
+  var letters = target.value;
+  // line is the element that contains all words
+  var line = output.querySelectorAll('.word-line')[0];
+  // the full word
+  var word_elem = line.querySelectorAll('.word');
+  // word letters = all word letters minus the ones typed
+  var word_letters = line.querySelectorAll('.word')[word_num].textContent.split('');
+  // word inner = individual letters
+  var word_inner = line.querySelectorAll('.word')[word_num].querySelectorAll('.word-letter');
+  // word = full word
+  var word = line.querySelectorAll('.word')[word_num].textContent;
+  // letter length = input letter count
+  var letter_length = letters.replace(/\s/g, '').length;
+  // first word = first few letters of the word displayed in the output
+  var first_word = word_letters.splice(0, letter_length).toString().replace(/,/g, '');
+  // input val = the letters in the input
+  var input_val = letters.split('').toString().replace(/,/g, '').replace(/\s/g, '');
+
+	// if space isn't pushed
+  if (e.type === 'keydown') {
+   	// if backspace is pressed
+    if (e.keyCode !== 32 && e.keyCode === 8) {
+     	// minimise letter count
+   		letter --;
+       
+      // if letter count is less than 0 just keep it at 0
+      if (letter < 0) {
+        letter = 0;
+      }
+   	}
+    // if backspace is pressed don't count it as a letter press
+    else if (e.keyCode !== 32 && e.keyCode !== 8) {
+     letter++;
+    }
+   }
+   
+   // if no characters are in the input make letter count 0
+  if (e.keyCode !== 32 && input.value.length <= 0) {
+   	letter = 0;
+  }
+  // if input count is greater than the word cap the letter count at the word length
+  else if (e.keyCode !== 32 && letter > word_inner.length) {
+  	letter = word_inner.length;
+  }
+  // if input contains characters make letter equal length of input value (exludes spaces)
+  else if (!input.value.match(/\s/) && input.value.length > 0 && e.keyCode !== 32) {
+  	letter = input.value.length;
+  }
+  
+  // select letter exclude spacebar
+  if (e.keyCode !== 32 && e.keyCode === 8) {
+   	// make sure letters are detected and remove style on backspace
+    if (word_inner[letter] && word_inner !== undefined) {
+    	word_inner[letter].removeAttribute('style');
+      //word_inner[letter].classList.remove('word-letter-anim');
+    }
+  }
+    
+  // word matching (make sure a word is detected)
+  if (e.keyCode !== 32 && e.keyCode !== 8 && word_inner[letter -1] && word_inner !== undefined) {
+   	// if displayed word is the same as the typed (or portion of word is right)
+    if (first_word === input_val || first_word[letters.length -1] === letters[letters.length -1]) {
+    	// set style for correct
+     	if (e.type === 'input' && e.keyCode !== 8 || e.type === 'input' && e.keyCode !== 32) {
+        word_inner[letter -1].style.cssText = correct;
+        //word_inner[letter -1].classList.add('word-letter-anim');
+     	  correct_letter++;
+     	  stroke++;
+        letter_stroke++;
+        
+        input.removeAttribute('style');
+     	  
+     	  if (stroke === 5) {
+     	  	correct_wrds++;
+          letter_flow++;
+     	  }
+     	}
+    }
+    // if displayed word does not match the typed word
+    else if (first_word !== input_val) {
+    	// set style for incorrect
+    	word_inner[letter -1].style.cssText = letter_error;
+      
+      if (e.type === 'input' && e.keyCode !== 8 || e.type === 'input' && e.keyCode !== 32) {
+        incorrect_letter++;
+        //correct_letter --;
+        
+        if (correct_letter <= 0) {
+          correct_letter = 0;
+        }
+        stroke = 0;
+        
+        input.style.cssText = error_colour;
+      }
+    }
+  }
+    
+  // if there are no letters in the input remove all styling
+  if (e.keyCode !== 32 && letter === 0) {
+    for (let i = 0; i < word_inner.length; i++) {
+      word_inner[i].removeAttribute('style');
+    }
+  }
+  
+  line.querySelectorAll('.word')[word_num].style.cssText = curr_word;
+  
+  // word submit and match
+  if (e.type === 'keyup' || e.type === 'keydown') {
+    // submit word
+    word_submit(target, e, letters, line, word_letters, word_inner, word, letter_length, first_word, input_val, word_elem);
+    
+	}
+}input.addEventListener('input', word_check);
+input.addEventListener('keyup', word_check);
+input.addEventListener('keydown', word_check);
+
+// submit word and update score
+function word_submit (target, e, letters, line, word_letters, word_inner, word, letter_length, first_word, input_val, word_elem) {
+	if (e.keyCode === 32 && target.value.match(/\S/) && target.value[0] !== ' ') {
+    	// collate incorrect words
+      var correct_size = word_elem[word_num].textContent.length - correct_letter;
+    
+      if (word !== input_val) {
+      	line.querySelectorAll('.word')[word_num].style.cssText = error;
+      	// incorrect count
+        if (correct_size <= correct_letter) {
+        	correct_wrds++;
+          mostly_correct++;
+          
+          //word_elem[word_num].style.cssText = partial+padding;
+          for (let i = 0; i < word_elem[word_num].querySelectorAll('span').length; i++) {
+            if (word_elem[word_num].querySelectorAll('span')[i].style.color !== 'rgb(252, 85, 88)') {
+              word_elem[word_num].querySelectorAll('span')[i].style.cssText = partial;
+              continue;
+            }
+          }
+        } 
+        else if (incorrect_letter > correct_letter) {
+          incorrect_wrd++;
+        }
+        
+        incorrect_letter = 0;
+        correct_letter = 0;
+      }
+      else if (first_word === input_val) {
+      	correct_wrds++;
+        fully_correct++;
+        
+        // remove background from previous word
+        line.querySelectorAll('.word')[word_num].style.cssText = 'padding: 5px 10px; background-color: transparent;';
+      }
+      
+      // shift to next word
+      word_num++;
+      incorrect_letter = 0;
+      correct_letter = 0;
+      
+      // clean out input and remove first word
+      target.value = '';
+      letter = 0;
+
+			// add new line to the end of list
+      if (word_num === line.querySelectorAll('.word').length) {
+      	line.remove();
+        
+        word_num = 0;
+        
+        word_list(1, wrd_num); 
+      }
+    }
+    // prevent white space at the begining of input
+    else if (e.keyCode === 32 && target.value.match(/\s/) && !target.value.match(/\s\S/)) {
+    	target.value = '';
+      //line.querySelectorAll('.word')[word_num].style.cssText = curr_word;
+      
+      target.removeAttribute('style');
+    }
+    else if (e.keyCode === 32 && target.value.match(/\s\S/)) {
+      target.value = target.value.replace(/\s/, '');
+    }
+}
+
+// start counter
+var timer_size = 100;
+var key_pressed = document.onkeydown = init_counter;
+var timer_bar = document.querySelector('.timer');
+function init_counter (e) {
+  if (e.keyCode !== 32 || e.keyCode !== 9 || e.keyCode !== 17 || e.keyCode !== 18) {
+    document.onkeydown = null;
+
+    var i = 60;
+
+    var counter_start = setInterval(() => {
+      i--;
+      
+      timer_size--;
+      
+      timer_size = timer_size - .67;
+      
+      if (timer_size <= 0) {
+        timer_bar.style.cssText = 'width: 0;';
+      } else {
+        timer_bar.style.cssText = 'width: '+timer_size+'%;';
+      }
+      
+      if (i <= 0) {
+        clearInterval(counter_start);
+
+        result.innerHTML = 
+        '<p>'+
+          correct_wrds+' WPM <br>'+
+          'Mostly correct: '+mostly_correct+'<br>'+
+          'Fully correct: '+fully_correct+'<br>'+
+          'Correct letter flow: '+letter_flow+'<br>'+
+          'Incorrect: '+incorrect_wrd+'<br>'+
+          'Keystrokes (excluding space and backspace): '+letter_stroke+
+        '</p>';
+      }
+
+      counter.textContent = i;
+    }, 1000);
+  }
+  
+  // start timer over on restart
+  function reset_timer () {
+    output.querySelectorAll('.word-line')[0].querySelectorAll('.word')[0].style.cssText = curr_word;
+    timer_size = 100;
+    timer_bar.style.cssText = 'width: 100%;';
+  	clearInterval(counter_start);
+    
+    correct_wrds = 0;
+    letter = 0;
+    incorrect_letter = 0;
+    correct_letter = 0;
+    letter_stroke = 0;
+    mostly_correct = 0;
+    fully_correct = 0;
+    letter_flow = 0;
+    input.removeAttribute('style');
+  }
+	refresh.addEventListener('click', reset_timer);
+}
+</script>
