@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+   <style>
+      html,body {
+      margin:0;
+      padding:0;
+      overflow-x:hidden;
+      }
+   </style>
+   <head>
+      {% with place="SLOT GAME" %} {% include "general/head.html" %} {% endwith %}
+      <section class="text-gray-400 body-font bg-gray-900">
+         <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-20">
+               <div
+                  class="flex flex-wrap w-full mb-20 flex-col items-center text-center"
+                  >
+
+<html>
+  <body style="text-align: center;" onLoad="return setup();">
+    <!-- ---------------------------------------- -->
+    <div id="log" style="display: none;">
+      <h2>Spin Log</h2>
+      <div id="spin_log"><br /></div>
+    </div>
+    <!-- ---------------------------------------- -->    
+    <div id="wrapper">
+      <h1 id="title"></h1>
+      <span style="font-size: 28px; color: green">$&nbsp;</span><input style="width: 100px;" type="text" id="munny" value="5000" disabled>
+      <hr />      
+      <table id="reels">
+	<tr>
+	  <td class="reel"><canvas id="reel_l" width="100px" height="0px"></canvas></td>
+	  <td class="reel"><canvas id="reel_c" width="100px" height="0px"></canvas></td>
+	  <td class="reel"><canvas id="reel_r" width="100px" height="0px"></canvas></td>
+	</tr>
+      </table>
+      <div id="line"></div>
+      <hr />
+      <button id="control" onClick="return button();"><b>Spin!</b></button>
+      <hr />
+      <div id="paytable"></div>
+      <hr />
+      <div id="reel_values">
+	<table id="payout">
+	  <tr>
+	    <td><input size="3" type="text" id="reel_l_fruit" value="" disabled></td>
+	    <td><input size="3" type="text" id="reel_c_fruit" value="" disabled></td>
+	    <td><input size="3" type="text" id="reel_r_fruit" value="" disabled></td>
+	  </tr>
+	  <tr>	
+	    <td colspan="3"><p id="last_payout"></p></td>
+	  </tr>	
+	</table>
+	<br /><br />	
+      </div>
+    </div>
+    <!-- ---------------------------------------- -->        
+    <div id="panel" style="display: none;">
+      <h2>Statistics</h2>
+      <table id="stats" width="100%">
+	<tr><th>Pot</th><td><input size="10" type="text" id="pot" value="0" disabled></td>
+	<tr><th>Revenue</th><td><input size="10" type="text" id="revenue" value="0" disabled></td>
+	<tr><th>Paid out</th><td><input size="10" type="text" id="paid" value="0" disabled></td>
+	<tr><th>Payout %</th><td><input size="10" type="text" id="payout_percent" value="0" disabled></td>
+	<tr><th>Test Mode</th><td><input size="10" type="text" id="test_mode" value="false" disabled></td>
+	<tr><th>Run State</th><td><input size="10" type="text" id="mode" value="stopped" disabled></td>
+      </table>
+    </div>
+    <!-- ---------------------------------------- -->    
+  </body>
+</html>
+
+
+
+<style>
+	h1 {
+	    font-family: 	Kai, Times, serif;    
+	    font-size: 		42px;
+	    border-radius:	18px 18px 0 0;
+	    border:		2px solid gold;
+	    background-color:	#800;
+	    color: 		#fff;
+	    text-align:		center;
+	    margin-top:		0px;
+	    padding-top:	0px;
+	}
+	h2 {
+	    font-family: 	Kai, Times, serif;
+	    font-size:		28px;
+	    height:		34px;
+	    border-radius:	16px 16px 0 0;
+	    border:		2px solid gold;
+	    background-color:	gold;
+	    color: 		black;
+	    text-align:		center;
+	    margin-top:		0px;
+	    padding-top:	0px;
+	    padding-bottom:	0px;
+	    margin-bottom:	0px;    
+	}
+	table {
+	    margin-left: 	auto;
+	    margin-right: 	auto;
+	    border: 		2px solid white;
+	}
+	th {
+	    border: 		2px solid gold;
+	    background: 	gold;
+	    padding:		5px;
+	}
+	td {
+	    text-align: 	center;
+	    color: 		white;
+	    font-size: 		24px;
+	}
+	.reel {
+	    border: 		2px solid gold;
+	    background-image: 	linear-gradient(to bottom, #888888 10%, white 30%, white 70%, #888888 90%);
+	}
+	#panel, #wrapper, #log {
+	    border:		2px solid yellow;
+	    background-color:	#222;
+	    border-radius:	20px;
+	    display:		table-cell;    
+	    width:		1000px;
+	}
+	#log, #panel {
+	    width:		200px;
+	}
+	#reel_r_fruit, #reel_l_fruit, #reel_c_fruit, #munny {
+	    background-color: 	black;
+	    text-align: 	center;
+	    font-size: 		24px;
+	    border-radius: 	5px;    
+	    color: 		#fff;
+	    height: 		42px;
+	    width: 		42px;
+	}
+	#reels {
+	    margin-left: 	auto;
+	    margin-right: 	auto;
+	    border: 		thin solid orange;
+	}
+	#reel_values {
+	}
+	#payout {
+	    background-color: 	black;
+	    border: 		thin solid yellow;
+	    width: 		100%;
+	}
+	#last_payout {
+	    color: 		white;
+	}
+	#reel_l_fruit, #reel_c_fruit, #reel_r_fruit {
+	    border: 		none;
+	}
+	#paytable {
+	    margin-left: 	auto;
+	    margin-right: 	auto;    
+	    font-family: 	helvetica, sans-serif;    
+	    background-color: 	black;
+	    border: 		thin solid orange;
+	    font-size: 		12px;
+	}
+	#control {
+	    background-color: 	green;
+	    font-size: 		24px;
+	    width: 		150px;
+	}
+	#line {
+	    margin-left: 	auto;
+	    margin-right: 	auto;
+	    border: 		thin solid #800;
+	    background-color: 	red;
+	    position: 		relative;
+	    height: 		1px;
+	    top: 		-110px;
+	}
+	#spin_log {
+	    width:		190px;
+	    text-align: 	left;
+	    word-wrap: 		break-word;
+	    overflow: 		scroll;
+	    text-align:		left;
+	    color:		yellow;
+	    padding-left:	10px;
+	    font-size:		18px;
+	}
+</style>
+
+<script>
+  const BET = 5; 			// Base bet amount
+	
+	const STOP_BELL = 0x1f514; 	// Bell
+	const STOP_LEMON = 0x1f34b; 	// Lemon
+	const STOP_CHERRY = 0x1f352; 	// Cherry
+	const STOP_MELON = 0x1f348; 	// Melon
+	const STOP_BAR = 0x1f4b0; 	// Moneybag (Should not be displayed)
+	const STOP_ORANGE = 0x1f34a; 	// Orange
+	
+	const FULL_SPACE = 0x3000;	// Empty Emoji/Hanzi-width Space
+	
+	const CIRCLE_0 = 0x24ea;	// Circled Zero
+	const CIRCLE_1 = 0x2460;	// Circled One (Others are built from an offset from this)
+	
+	const LEFT_REEL_SPEED = 19;
+	const CENTER_REEL_SPEED = 20;
+	const RIGHT_REEL_SPEED = 18;
+	
+	const LEFT_REEL = 		[ STOP_CHERRY,
+					  STOP_BAR, 
+					  STOP_MELON, 
+					  STOP_CHERRY, 
+					  STOP_MELON, 
+					  STOP_ORANGE, 
+					  STOP_CHERRY, 
+					  STOP_BELL, 
+					  STOP_MELON, 
+					  STOP_CHERRY, 
+					  STOP_LEMON, 
+					  STOP_ORANGE, 
+					  STOP_CHERRY, 
+					  STOP_LEMON, 
+					  STOP_MELON, 
+					  STOP_CHERRY, 
+					  STOP_LEMON, 
+					  STOP_ORANGE, 
+					  STOP_LEMON, 
+					  STOP_MELON];
+	
+	const CENTER_REEL = 		[ STOP_BAR, 
+					  STOP_ORANGE, 
+					  STOP_CHERRY, 
+					  STOP_BELL, 
+					  STOP_CHERRY, 
+					  STOP_ORANGE, 
+					  STOP_CHERRY, 
+					  STOP_MELON, 
+					  STOP_CHERRY, 
+					  STOP_ORANGE, 
+					  STOP_BELL, 
+					  STOP_ORANGE, 
+					  STOP_MELON, 
+					  STOP_ORANGE, 
+					  STOP_CHERRY, 
+					  STOP_BAR, 
+					  STOP_BELL, 
+					  STOP_CHERRY, 
+					  STOP_ORANGE, 
+					  STOP_CHERRY];
+	
+	const RIGHT_REEL = 		[ STOP_ORANGE, 
+					  STOP_LEMON, 
+					  STOP_MELON, 
+					  STOP_BELL, 
+					  STOP_ORANGE, 
+					  STOP_LEMON, 
+					  STOP_MELON, 
+					  STOP_ORANGE, 
+					  STOP_BELL, 
+					  STOP_MELON, 
+					  STOP_LEMON, 
+					  STOP_ORANGE, 
+					  STOP_MELON, 
+					  STOP_ORANGE, 
+					  STOP_BAR, 
+					  STOP_LEMON, 
+					  STOP_MELON, 
+					  STOP_ORANGE, 
+					  STOP_BELL, 
+					  STOP_LEMON];
+	
+	const ALL_REELS = LEFT_REEL.concat(CENTER_REEL, RIGHT_REEL);
+	
+	const PAYTABLE = [ {reels: String.fromCodePoint(STOP_BAR) + String.fromCodePoint(STOP_BAR) + String.fromCodePoint(STOP_BAR), payout: 20}, // Bar Bar Bar 20
+			   {reels: String.fromCodePoint(STOP_BELL) + String.fromCodePoint(STOP_BELL) + String.fromCodePoint(STOP_BELL), payout: 18}, // Bell Bell Bell 18
+			   {reels: String.fromCodePoint(STOP_BELL) + String.fromCodePoint(STOP_BELL) + String.fromCodePoint(STOP_BAR), payout: 18}, // Bell Bell Bar 18
+			   {reels: String.fromCodePoint(STOP_MELON) + String.fromCodePoint(STOP_MELON) + String.fromCodePoint(STOP_MELON), payout: 14}, // Plum Plum Plum 14
+			   {reels: String.fromCodePoint(STOP_MELON) + String.fromCodePoint(STOP_MELON) + String.fromCodePoint(STOP_BAR), payout: 14}, // Plum Plum Bar 14
+			   {reels: String.fromCodePoint(STOP_ORANGE) + String.fromCodePoint(STOP_ORANGE) + String.fromCodePoint(STOP_ORANGE), payout: 10}, // Orange Orange Orange 10
+			   {reels: String.fromCodePoint(STOP_ORANGE) + String.fromCodePoint(STOP_ORANGE) + String.fromCodePoint(STOP_BAR), payout: 10}, // Orange Orange Bar 10
+			   {reels: String.fromCodePoint(STOP_CHERRY) + String.fromCodePoint(STOP_CHERRY) + String.fromCodePoint(STOP_LEMON), payout: 5}, // Cherry Cherry Lemon 5
+			   {reels: String.fromCodePoint(STOP_CHERRY) + String.fromCodePoint(STOP_CHERRY) + String.fromCodePoint(STOP_BELL), payout: 5}, // Cherry Cherry Bell 5
+			   {reels: String.fromCodePoint(STOP_CHERRY) + String.fromCodePoint(STOP_CHERRY) + String.fromCodePoint(FULL_SPACE), payout: 3}, // Cherry Cherry Anything 3
+			 ];
+	
+	const DISTINCT_FRUIT = [...new Set(CENTER_REEL)];
+	
+	const EMOJI_HEIGHT = 104;
+	const FRUIT_COUNT = CENTER_REEL.length;
+	const WINDOW_HEIGHT = FRUIT_COUNT * EMOJI_HEIGHT;
+	
+	const FRUIT_OFFSET = (FRUIT_COUNT - 1);
+	const VERTICAL_OFFSET = 42;
+	
+	var l = Math.floor(Math.random() * Math.floor(WINDOW_HEIGHT));
+	var c = Math.floor(Math.random() * Math.floor(WINDOW_HEIGHT));
+	var r = Math.floor(Math.random() * Math.floor(WINDOW_HEIGHT));
+	
+	var timer;
+	
+	function display() {
+	    var mode = document.getElementById("mode").value;
+	    
+	    var left   = document.getElementById("reel_l").getContext('2d');
+	    var center = document.getElementById("reel_c").getContext('2d');
+	    var right  = document.getElementById("reel_r").getContext('2d');
+	    
+	    clear();
+	    
+	    loff = l % WINDOW_HEIGHT;
+	    coff = c % WINDOW_HEIGHT;
+	    roff = r % WINDOW_HEIGHT;
+	    
+	    if(mode == "running") {
+		l = (l + LEFT_REEL_SPEED) % WINDOW_HEIGHT;
+		c = (c + CENTER_REEL_SPEED) % WINDOW_HEIGHT;
+		r = (r + RIGHT_REEL_SPEED) % WINDOW_HEIGHT;
+	    } else {
+		l = l % EMOJI_HEIGHT ? (l + 1) % WINDOW_HEIGHT : l;
+		c = c % EMOJI_HEIGHT ? (c + 1) % WINDOW_HEIGHT : c;
+		r = r % EMOJI_HEIGHT ? (r + 1) % WINDOW_HEIGHT : r;
+	    }
+	
+	    left.save();
+	    center.save();
+	    right.save();
+	    
+	    for(i = 0;i < FRUIT_COUNT;i++) {
+		var i_offset = (i + FRUIT_OFFSET) % FRUIT_COUNT;
+		left.fillText(String.fromCodePoint(LEFT_REEL[i_offset]), 0, (((i * EMOJI_HEIGHT) + l) % WINDOW_HEIGHT) + VERTICAL_OFFSET)
+		center.fillText(String.fromCodePoint(CENTER_REEL[i_offset]), 0, (((i * EMOJI_HEIGHT) + c) % WINDOW_HEIGHT) + VERTICAL_OFFSET);
+		right.fillText(String.fromCodePoint(RIGHT_REEL[i_offset]), 0, (((i * EMOJI_HEIGHT) + r) % WINDOW_HEIGHT) + VERTICAL_OFFSET);
+	    }
+	    
+	    left.restore();
+	    center.restore();
+	    right.restore();
+	
+	    var left_fruit = (FRUIT_COUNT - Math.floor(l / EMOJI_HEIGHT)) % FRUIT_COUNT;
+	    var center_fruit = (FRUIT_COUNT - Math.floor(c / EMOJI_HEIGHT)) % FRUIT_COUNT;
+	    var right_fruit = (FRUIT_COUNT - Math.floor(r / EMOJI_HEIGHT)) % FRUIT_COUNT;
+	
+	    var mode = document.getElementById("mode").value;
+	    if(mode == "running") {
+		requestAnimationFrame(display);
+	    } else if (mode == "stopping") {
+		if(((l % EMOJI_HEIGHT)) == 0 && ((c % EMOJI_HEIGHT) == 0) && ((r % EMOJI_HEIGHT) == 0)) {
+		    document.getElementById("mode").value = "stopped";
+		    document.getElementById("control").innerHTML = "<b>Spin: $" + BET + "</b>";
+		    document.getElementById("control").disabled = false;
+		    document.getElementById("control").style.backgroundColor = "green";
+		    
+		    var pays = payout(LEFT_REEL[left_fruit], CENTER_REEL[center_fruit], RIGHT_REEL[right_fruit]);
+		    
+		    document.getElementById("munny").value = parseInt(document.getElementById("munny").value) + pays;
+		    document.getElementById("last_payout").innerHTML = "Pays $" + pays;
+		    document.getElementById("munny").style.color = '#ffffff';
+	
+		    document.getElementById("reel_l_fruit").value = String.fromCodePoint(LEFT_REEL[left_fruit]);
+		    document.getElementById("reel_c_fruit").value = String.fromCodePoint(CENTER_REEL[center_fruit]);
+		    document.getElementById("reel_r_fruit").value = String.fromCodePoint(RIGHT_REEL[right_fruit]);
+		    testMode(10);	    
+		}
+		requestAnimationFrame(display);
+	    }
+	}
+	
+	function clear() {  
+	    var left   = document.getElementById("reel_l").getContext('2d');
+	    var center = document.getElementById("reel_c").getContext('2d');
+	    var right  = document.getElementById("reel_r").getContext('2d');
+	
+	    var w = EMOJI_HEIGHT;
+	    var h = WINDOW_HEIGHT;
+	    
+	    left.setTransform(1,0,0,1,0,0);
+	    left.globalAlpha = 1;
+	    left.clearRect(0,0,w,h);
+	    left.font = "100px serif";
+	    
+	    center.setTransform(1,0,0,1,0,0);
+	    center.globalAlpha = 1;
+	    center.clearRect(0,0,w,h);
+	    center.font = "100px serif";    
+	    
+	    right.setTransform(1,0,0,1,0,0);
+	    right.globalAlpha = 1;
+	    right.clearRect(0,0,w,h);
+	    right.font = "100px serif";
+	
+	    paytable();
+	}
+	
+	function toggle(element) {
+	    e = document.getElementById("panel");
+	    f = document.getElementById("log");
+	    if(e.style.display == "none") {
+		e.style.display = "block";
+		f.style.display = "block";
+	    } else {
+		e.style.display = "none";
+		f.style.display = "none";
+	    }
+	}
+	
+	function setup() {
+	    document.getElementById("title").innerHTML = '<span onClick="return toggle();" id="log_button">💰</span>Welcome To LNS SLOT Game!<span onClick="return toggle();" id="stats_button">💰</span>';
+	    document.getElementById("control").innerHTML = "<b>Spin: $" + BET + "</b>";
+	    document.getElementById("reel_l").height = 208;
+	    document.getElementById("reel_c").height = 208;
+	    document.getElementById("reel_r").height = 208;
+	    document.getElementById("line").style.width = "400px";
+	    document.getElementById("paytable").style.width = "200px";
+	    document.getElementById("payout").style.width = "200px";
+	
+	    document.getElementById("log").style.height = window.innerHeight - 100;
+	    document.getElementById("panel").style.height = window.innerHeight - 100;
+	    document.getElementById("wrapper").style.height = window.innerHeight - 100;
+	    document.getElementById("spin_log").style.height = window.innerHeight - 150;
+	
+	    display();
+	    testMode(1);
+	    return 0;
+	}
+	
+	function button() {
+	    var mode = document.getElementById("mode").value;
+	
+	    if(mode == "stopped") {
+		document.getElementById("mode").value = "running";	
+		document.getElementById("control").innerHTML = "<b>Stop</b>";
+		document.getElementById("control").style.backgroundColor = "red";
+		document.getElementById("munny").value = document.getElementById("munny").value - BET;
+		document.getElementById("reel_l_fruit").value = String.fromCodePoint(FULL_SPACE);
+		document.getElementById("reel_c_fruit").value = String.fromCodePoint(FULL_SPACE);
+		document.getElementById("reel_r_fruit").value = String.fromCodePoint(FULL_SPACE);
+		document.getElementById("last_payout").innerHTML = "?";
+		display();
+		testMode(Math.floor(Math.random() * Math.floor(2000)));
+	    } else if(mode == "running") {
+		document.getElementById("mode").value = "stopping";
+		document.getElementById("control").innerHTML = "<b>Stopping …</b>";
+		document.getElementById("control").disabled = true;
+		document.getElementById("control").style.backgroundColor = "yellow";
+		testMode(10);
+	    }
+	}
+	
+	function payout(r1, r2, r3) {
+	    var payout = 0;
+	    var multiplier = 0;    
+	    for(i=0;i<PAYTABLE.length;i++) {
+		if(PAYTABLE[i]["reels"] == String.fromCodePoint(r1) + String.fromCodePoint(r2) + String.fromCodePoint(r3)) {
+		    multiplier = PAYTABLE[i]["payout"];
+		    payout = BET * PAYTABLE[i]["payout"];
+		    break;
+		} else if(PAYTABLE[i]["reels"] == String.fromCodePoint(r1) + String.fromCodePoint(r2) + String.fromCodePoint(FULL_SPACE)) {
+		    multiplier = PAYTABLE[i]["payout"];	    
+		    payout = BET * PAYTABLE[i]["payout"];
+		    break;
+		}
+	    }
+	    if(payout > 0) {
+		flash(10);
+	    }
+	    
+	    document.getElementById("spin_log").innerHTML += '<span style="color: ' + ( multiplier ? "#88ff88" : "white" ) + '">' + String.fromCodePoint((multiplier ? CIRCLE_1 + (multiplier - 1) : CIRCLE_0)) + '</span>';
+	    document.getElementById("pot").value = parseInt(document.getElementById("pot").value) + BET - payout;
+	    document.getElementById("revenue").value = parseInt(document.getElementById("revenue").value) + BET;
+	    document.getElementById("paid").value = parseInt(document.getElementById("paid").value) + payout;
+	    document.getElementById("payout_percent").value = Math.floor(parseInt(document.getElementById("paid").value) / parseInt(document.getElementById("revenue").value) * 100);
+	    
+	    return payout;
+	}
+	
+	function paytable() {
+	    document.getElementById("paytable").innerHTML = '<table id="payout">';
+	    document.getElementById("payout").innerHTML += '<tr><th colspan="2">Pays on Center Line</th></tr>';
+	    for(i=0;i<PAYTABLE.length;i++) {
+		document.getElementById("payout").innerHTML += '<tr><td>' + PAYTABLE[i]["reels"] + '</td><td style="text-align: left;">' + PAYTABLE[i]["payout"] + ' ✕</td></tr>';
+	    }
+	    document.getElementById("paytable").innerHTML += "</table>";
+	}
+	function flash(r) {
+	    var x = document.getElementsByTagName("hr");
+	    for (i = 0; i < x.length; i++) {
+		if(x[i].style.border == "thin solid gold") {
+		    x[i].style.border = "thin solid white";
+		} else {
+		    x[i].style.border = "thin solid gold";
+		}
+	    }
+	    var y = document.getElementById("wrapper");
+	    if(y.style.border == "thin solid gold") {
+		y.style.border = "thin solid white";
+	    } else {
+		y.style.border = "thin solid gold";
+	    }    
+	
+	    if(r > 0) {
+		timer = setTimeout(flash, 500, r - 1);
+	    } else {
+		clearTimeout(timer);
+	    }
+	}
+	function testMode(r)
+	{
+	    var test_mode = document.getElementById("test_mode").value;
+	    if(test_mode == "true") {
+		setTimeout(button, r);
+	    }
+	}
+</script>

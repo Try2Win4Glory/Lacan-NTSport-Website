@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+   <style>
+      html,body {
+      margin:0;
+      padding:0;
+      overflow-x:hidden;
+      }
+   </style>
+   <head>
+      {% with place="Invalid Comp" %} {% include "general/head.html" %} {% endwith %}
+
+     
+      <section class="text-gray-400 body-font bg-gray-900">
+         <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-20">
+               <div
+                  class="flex flex-wrap w-full mb-20 flex-col items-center text-center"
+                  >
+                  
+<div class="hamburger-menu">
+  <ion-icon name="menu-outline" id="hamburger-icon"></ion-icon>
+</div>
+<div class="sidebar" id="sidebars">
+  <div class="close-icon" id="close" onclick="closeNav() ">
+    <ion-icon name="close-outline"></ion-icon>
+  </div>
+
+
+<i class="fa fa-3x fa-exclamation-triangle blink" style="color:ebcd25"></i>
+<div class="invalid-contain"><br>You are attempting to view a Private Competition you're not the creator of.<br>
+</br>Please contact the Creator to publish this Competition or ask them to invite you.<br></br></div>
+</div>
+</body>
+</html>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <hr />
+      <footer class="text-gray-400 bg-gray-900 body-font">
+         <div
+            class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col"
+            >
+            <a
+               class="flex title-font font-medium items-center md:justify-start justify-center text-white"
+               >
+            <img
+               src="https://media.discordapp.net/attachments/925374235797495829/939515277232734288/Lacan_Logo_Transparent.png"
+               width="40"
+               height="40"
+               />
+            <span class="ml-3 text-xl">Lacan</span>
+            </a>
+            <p
+               class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4"
+               >
+               © 2022 All Rights Reserved. @Lacan NTSport Team
+            </p>
+            <span
+               class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+               >
+            <a href="https://github.com/Try2Win4Glory/Lacan-NTSport" class="ml-3 text-gray-400">
+            <i class="fab fa-github"></i>
+            </a>
+            <a
+               href="https://top.gg/bot/713352863153258556/vote"
+               class="ml-3 text-gray-400"
+               >
+            <i class="fab fa-discord"></i>
+            </a>
+            </span>
+         </div>
+      </footer>
+      <noscript>
+         Please enable JavaScript in your browser, to view this page properly!
+      </noscript>
+   </body>
+</html>
+
+<style>
+   a.svelte-1wqnw5n.svelte-1wqnw5n {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    display: block;
+    text-decoration: none;
+    padding: 10px 0.5em;
+    border-radius: 7px;
+    background-color: gray;
+}
+.invalid-contain{
+  width: 100%;
+  height: auto;
+  background-color: trnasparent;
+  border-radius: 7px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 100px;
+  color: red;
+  outline: red solid 3px;
+}
+.dropdown.svelte-1wqnw5n .dropbtn.svelte-1wqnw5n {
+    font-size: 16px;
+    color: white;
+    background-color: inherit;
+    font-family: inherit;
+    box-shadow: none;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+    padding: 14px 16px;
+    margin: 0px;
+}
+
+.dropdown.svelte-1wqnw5n.svelte-1wqnw5n {
+    float: left;
+    overflow: hidden;
+}
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.body {
+  background-color: red !important;
+}
+
+  .blink {
+      animation: blink 2s steps(5, start) infinite;
+      -webkit-animation: blink 1s steps(5, start) infinite;
+    }
+    @keyframes blink {
+      to {
+        visibility: hidden;
+      }
+    }
+    @-webkit-keyframes blink {
+      to {
+        visibility: hidden;
+      }
+    }
+</style>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <link
+         rel="shortcut icon"
+         type="image/png"
+         href="https://cdn.discordapp.com/attachments/925374235797495829/925390662101270578/LNS_TEXT_BLACK.png"
+         />
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/styles/home.css">
+      <meta
+         name="description"
+         content="Lacan NTSport is a bot based on the typing game, Nitro Type. It was built to help bring Nitro Type stats with rich information."
+         />
+      <meta name="author" content="LNS" />
+      <meta
+         property="og:image"
+         content="https://cdn.discordapp.com/attachments/925374235797495829/925390662101270578/LNS_TEXT_BLACK.png"
+         />
+      <meta property="og:url" content="https://LNS-Website.a1sauces.repl.co" />
+      <meta name="theme-color" content="#FF0000" />
+      <title>
+         Lacan NTSport - {{place}}
+      </title>
+      <link
+         href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+         rel="stylesheet"
+         />
+      <script
+         src="https://kit.fontawesome.com/fe5629e38b.js"
+         crossorigin="anonymous"
+         ></script>
+   </head>
+   <!--body oncontextmenu="return false"-->
+      <header class="text-gray-400 bg-gray-900 body-font">
+         <div
+            class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+            >
+            <a
+               class="flex title-font font-medium items-center text-white mb-4 md:mb-0"
+               >
+               <img
+                  src="https://media.discordapp.net/attachments/925374235797495829/939515277232734288/Lacan_Logo_Transparent.png"
+                  width="100"
+                  height="100"
+                  />
+               <!--
+                  img src="https://cdn.discordapp.com/attachments/925374235797495829/925390662101270578/LNS_TEXT_BLACK.png"
+                  width="40"
+                  height="40"
+                  -->
+            </a>
+            <nav
+               class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+               <ul class="navbar-links">
+                  <li class="navbar-dropdown">
+                     <a href="/">Home</a>
+                     <div class="dropdown">
+                        <a href="/">Home</a>
+                        <a href="/dashboard">Dashboard</a>
+                     </div>
+                  </li>
+                  <li class="navbar-dropdown">
+                     <a href="#">Lacan NTSport</a>
+                     <div class="dropdown">
+                        <a href="/commands/">Commands</a>
+                        <a href="/invite/">Invite</a>
+                        <a href="/support/">Support Server</a>
+                        <a href="/team/">Team</a>
+                        <a href="/privacy/">Privacy Policy</a>
+                     </div>
+                  </li>
+                  <li class="navbar-dropdown">
+                     <a href="#">Competitions</a>
+                     <div class="dropdown">
+                        <a href="/team-comp/create">Team Competition</a>
+                        <a href="/player-comp/create">Player Competition</a>
+                     </div>
+                  </li>
+
+<!-- Player Stats will never be released.-->
+                  <!--li class="navbar-dropdown">
+                     <a href="#">Stats</a>
+                     <div class="dropdown">
+                        <a href="/racer-stats/">Player Stats</a>
+                     </div>
+               </li-->
+
+<!-- Games will be released after Beta -->    
+                  <!--li class="navbar-dropdown">
+                     <a href="#">Games</a>
+                     <div class="dropdown">
+                        <a href="/lnsgames/hangman/">Hangman</a>
+                        <a href="/lnsgames/typerace/">Typerace</a>
+                     </div>
+               </li-->
+                  <li class="navbar-dropdown">
+                     <a href="#">Other</a>
+                     <div class="dropdown">
+                        <a href="/vote/">Vote</a>
+                        <a href="/lnschat/">Chat</a>
+                     </div>
+                  <li class="navbar-dropdown">
+                     <a href="#">Announcements</a>
+                    <div class ="dropdown">
+                      <a href="/news/">News</a>
+                     <a href="/updates/">Updates</a>
+                    </div>
+               </ul>
+            </nav>
+            {% if not logged_in %}
+            <a href="/login" class="svelte-1wqnw5n">
+            <button class="svelte-1wqnw5n">
+            <i class="fa fa-sign-in"></i>
+            Login
+            </button>
+            </a>
+            {% else %}
+            <div class="dropdown" style="float: right;">
+               <a href="/login" class="svelte-1wqnw5n">
+               <button class="svelte-1wqnw5n">
+               <i class="fa fa-sign-out"></i>
+               {{session.username}}
+               </button>
+               </a>
+               <div class="dropdown-content" style="border-radius: 7px">
+                 <a href="/">
+                  <i class="fa fa-home"></i>
+                  Home
+                  </a>
+                 <a href="/dashboard">
+                  <i class="fa fa-cogs"></i>
+                  Dashboard
+                  </a>
+                  <!--a href="/user/{{session.username}}">
+                  <i class="fa fa-user"></i>
+                  Profile
+                  </a>
+                  <a href="customize">
+                  <i class="fa fa-paint-brush"></i>
+                  Customize
+                  </a>
+                  <a href="settings">
+                  <i class="fa fa-cogs"></i>
+                  Settings
+               </a-->
+                  <a href="/veryencryptedapiendpoint/logout" class="logout-btn" style="color:red">
+                  <i class="fa fa-sign-out"></i>
+                  Logout
+                  </a>
+               </div>
+            </div>
+            {% endif %}
+         </div>
+      </header>
+      <hr style="color:white"/>
+</html>
+<style>
+   a.svelte-1wqnw5n.svelte-1wqnw5n {
+   font-size: 18px;
+   font-weight: bold;
+   color: white;
+   display: block;
+   text-decoration: none;
+   padding: 10px 0.5em;
+   border-radius: 7px;
+   background-color: gray;
+   width: 200px;
+   text-align: center;
+   }
+   .dropdown.svelte-1wqnw5n .dropbtn.svelte-1wqnw5n {
+   font-size: 16px;
+   color: white;
+   background-color: inherit;
+   font-family: inherit;
+   box-shadow: none;
+   border-width: initial;
+   border-style: none;
+   border-color: #170E8C;
+   border-image: initial;
+   outline: none;
+   padding: 14px 16px;
+   margin: 0px;
+   }
+   .dropdown.svelte-1wqnw5n.svelte-1wqnw5n {
+   float: left;
+   overflow: hidden;
+   }
+   .dropbtn {
+   background-color: #04AA6D;
+   color: white;
+   padding: 16px;
+   font-size: 16px;
+   border: none;
+   cursor: pointer;
+   }
+   .dropdown {
+   position: relative;
+   display: inline-block;
+   }
+   .dropdown-content {
+   display: none;
+   position: absolute;
+   right: 0;
+   background-color: #f9f9f9;
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   z-index: 1;
+   border-radius: 7px;
+   }
+   .dropdown-content a {
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+   border-radius: 7px;
+   width: 200px;
+   }
+   .dropdown-content a:hover {background-color: #f1f1f1;}
+   .dropdown:hover .dropdown-content {display: block;}
+   .dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+<style>
+   .navbar {
+   display: flex;
+   align-items: center;
+   width: 100vw;
+   background-color: #fff;
+   box-shadow: 0px 10px 10px 3px rgba(0, 0, 0, 0.3);
+   position: center;
+   padding: 20px 70px;
+   background-color: transparent;
+   }
+   .navbar-logo {
+   color: #ff3f34;
+   text-decoration: none;
+   font-size: 25px;
+   padding: 0px 20px;
+   }
+   .navbar-links {
+   list-style-type: none;
+   display: flex;
+   }
+   .navbar-links li a {
+   display: block;
+   text-decoration: none;
+   color: #797a7d;
+   padding: 20px 20px;
+   /*font-weight: 700;*/
+   font-weight: 500;
+   transition: 0.4s all;
+   }
+   .navbar-links li.navbar-dropdown {
+   position: relative;
+   }
+   .navbar-links li.navbar-dropdown:hover .dropdown {
+   visibility: visible;
+   opacity: 1;
+   transform: translateY(0px);
+   }
+   .navbar-links li.navbar-dropdown .dropdown {
+   visibility: hidden;
+   opacity: 0;
+   position: absolute;
+   padding: 20px 0;
+   top: 100%;
+   transform: translateY(50px);
+   left: 0;
+   width: 250px;
+   background-color: #363940;
+   box-shadow: 0px 10px 10px 3px rgba(0, 0, 0, 0.3);
+   border-bottom-left-radius: 3px;
+   border-bottom-right-radius: 3px;
+   z-index: 111;
+   transition: 0.4s all;
+   }
+   .navbar-links li.navbar-dropdown .dropdown a {
+   padding-top: 10px;
+   padding-bottom: 10px;
+   font-weight: 400;
+   }
+   .navbar-dropdown .dropdown a:hover {
+   padding-left: 30px;
+   text-decoration: underline;
+   }
+   .navbar-links li a:hover {
+   color: #ff3f34;
+   text-decoration: underline;
+   }
+   .header {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100vw;
+   height: 90vh;
+   /* background-color: #f00; */
+   background-image: url("http://lorempixel.com/1366/698/food/");
+   background-size: cover;
+   }
+   .header-inner {
+   text-align: center;
+   color: #ff3f34;
+   text-shadow: 0px 10px 10px rgba(0, 0, 0, .8);
+   }
+   .header-inner h1 {
+   font-family: "Great Vibes", cursive;
+   font-size: 130px;
+   }
+   .header-inner form input[type="search"] {
+   position: relative;
+   width: 500px;
+   border: none;
+   padding: 15px;
+   border-radius: 27px;
+   box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.3);
+   z-index: 11;
+   }
+   .header-inner form input[type="search"]:focus {
+   outline: none;
+   }
+   .header-inner form input[type="search"]:focus + div {
+   z-index: 1;
+   opacity: 1;
+   }
+   ::placeholder {
+   color: #666;
+   font-weight: 400;
+   }
+</style>

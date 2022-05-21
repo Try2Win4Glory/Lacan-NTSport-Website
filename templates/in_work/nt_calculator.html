@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+   <style>
+      html,body {
+      margin:0;
+      padding:0;
+      overflow-x:hidden;
+      }
+   </style>
+   <head>
+      <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+         <link rel="stylesheet" href="Bootstrap/bootstrap.min.css">
+     
+     
+      {% with place="NT - Calculator" %} {% include "general/head.html" %} {% endwith %}
+      <hr/>
+
+      <section class="text-gray-400 body-font bg-gray-900">
+         <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-20">
+               <div
+                  class="flex flex-wrap w-full mb-20 flex-col items-center text-center"
+                  >
+                  
+<html><head><title></title><script src="JQuery/jquery.min.js"></script><script type="text/javascript">
+function scorecalc(type) {
+  var races = $('#races').val();
+  var wpm = 100.0 + ($('#wpm').val() / 2.0);
+  var points = $('#points').val();
+  var acc = $('#accuracy').val() / 100.0;
+  var textlen = $('#textlength').val();
+  var result = 0.0;
+  var round = { "points": 0, "accuracy": 1, "wpm": 0, "races": 0 };
+
+  if (type == "points") {
+    result = Math.round(races * wpm * acc);
+  } else if (type == "accuracy") {
+    result = 100.0 * points / (races * wpm);
+  } else if (type == "wpm") {
+    result = Math.round(2.0 * (points / (races * acc) - 100.0));
+  } else {
+    result = Math.ceil(points / (wpm * acc));
+  }
+  $('#' + type).val(result.toFixed(round[type]));
+}
+</script></head>
+<div class="popup"><h3 style="margin-bottom: 5px">NT Calculator</h3>
+    <table>
+    <tbody><tr>
+    <td style="color:white">Races</td><td><input type="textarea" id="races" size="4" value="500"></td><td><input type="submit" onclick="scorecalc(&quot;races&quot;)" value="calculate"></td>
+    </tr><tr>
+    <td style="color:white">Accuracy</td><td><input type="textarea" id="accuracy" size="4" value="95.0"></td><td><input type="submit" onclick="scorecalc(&quot;accuracy&quot;)" value="calculate"></td>
+    </tr><tr>
+    <td style="color:white">WPM</td><td><input type="textarea" id="wpm" size="4" value="60"></td><td><input type="submit" onclick="scorecalc(&quot;wpm&quot;)" value="calculate"></td>
+    </tr><tr>
+    <td style="color:white">Points</td><td><input type="textarea" id="points" size="4" value="6000"></td><td><input type="submit" onclick="scorecalc(&quot;points&quot;)" value="calculate"></td>
+    </tr></tbody></table>
+    </section>
+    <!--End of Points Calculator-->
+<style>
+  body{
+    background-color:;
+  }
+body[Attributes Style] {
+    background-color: orange;
+}
+user agent stylesheet
+body {
+    display: block;
+    margin: 8px;
+}
+</style>
+</div>
+</body>
+</html>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <hr />
+      <footer class="text-gray-400 bg-gray-900 body-font">
+         <div
+            class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col"
+            >
+            <a
+               class="flex title-font font-medium items-center md:justify-start justify-center text-white"
+               >
+            <img
+               src="https://media.discordapp.net/attachments/925374235797495829/939515277232734288/Lacan_Logo_Transparent.png"
+               width="40"
+               height="40"
+               />
+            <span class="ml-3 text-xl">Lacan</span>
+            </a>
+            <p
+               class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4"
+               >
+               © 2022 All Rights Reserved. @Lacan NTSport Team
+            </p>
+            <span
+               class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+               >
+            <a href="https://github.com/Try2Win4Glory/Lacan-NTSport" class="ml-3 text-gray-400">
+            <i class="fab fa-github"></i>
+            </a>
+            <a
+               href="https://top.gg/bot/713352863153258556/vote"
+               class="ml-3 text-gray-400"
+               >
+            <i class="fab fa-discord"></i>
+            </a>
+            </span>
+         </div>
+      </footer>
+      <noscript>
+         Please enable JavaScript in your browser, to view this page properly!
+      </noscript>
+   </body>
+</html>
+
+<style>
+   a.svelte-1wqnw5n.svelte-1wqnw5n {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    display: block;
+    text-decoration: none;
+    padding: 10px 0.5em;
+    border-radius: 7px;
+    background-color: gray;
+}
+
+.dropdown.svelte-1wqnw5n .dropbtn.svelte-1wqnw5n {
+    font-size: 16px;
+    color: white;
+    background-color: inherit;
+    font-family: inherit;
+    box-shadow: none;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+    padding: 14px 16px;
+    margin: 0px;
+}
+
+.dropdown.svelte-1wqnw5n.svelte-1wqnw5n {
+    float: left;
+    overflow: hidden;
+}
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+</style>

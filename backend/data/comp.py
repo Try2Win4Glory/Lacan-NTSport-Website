@@ -13,19 +13,22 @@ def get_comp_data(compid):
     return data, dbclient
 def team_data(team):
     team = team.upper()
-    scraper = Racer('almightyone1').requests
+    scraper = Racer('travis').requests
     return scraper.get(f'https://www.nitrotype.com/api/v2/teams/{team}').text
 def leaderboards(compid, category="races"):
     data, dbclient = get_comp_data(compid)
-    data = update_comp(data, dbclient)
+    print(compid)
+    newdata = update_comp(data, dbclient)
+    print(data == newdata)
+    data = newdata
     usernames = []
     displays = []
     categorylist = []
     datalist = []
-
     for user in data['players']:
         if user['stillinteam'] == False:
-            continue
+          continue
+        #print(user)
         user['wpm'] = round(float(user['wpm']),2)
         user['accuracy'] = round(float(user['accuracy']),2)
         user['points'] = round(float(user['points']),2)
@@ -39,8 +42,9 @@ def leaderboards(compid, category="races"):
             categorylist.append(user['wpm'])
         elif category == "accuracy":
             categorylist.append(user['accuracy'])
+        user['points'] = user['total-races']*(100+float(user['wpm'])/2)*user['accuracy']/100
         try:
-            user['points'] = user['total-races']*(100+int(user['wpm']))*user['accuracy']/100
+            user['points'] = user['total-races']*(100+float(user['wpm'])/2)*user['accuracy']/100
             userpoints = user['points']
             user['points'] = round(float(userpoints))
             user['points'] = "{:,}".format(user['points'])
@@ -58,11 +62,22 @@ def leaderboards(compid, category="races"):
         cleanresult.append(tuple([x for x in t if not t.index(x) == 0]))
     return cleanresult
 def update_comp(data, dbclient):
+    current_time = time.time()
+    try:
+        print(data['other']['startcomptime'])
+        if (int(data['other']['startcomptime']) > current_time) or (int(data['other']['endcomptime']) < current_time):
+            #print('not updating')
+            return data
+    except:
+        if int(data['other']['endcomptime']) < current_time:
+            return data
+    print("updating")
     old = copy.deepcopy(data)
     collection = dbclient.db.test
     other = data['other']
     players = data['players']
     team = other['team']
+    updated_players = data['players']
     if round(time.time()) >= other['endcomptime']:
         return data
     page = team_data(team)
@@ -93,7 +108,7 @@ def update_comp(data, dbclient):
                     try:
                         user['wpm'] = (user['ending-typed']-user['starting-typed'])/5/float(user['ending-secs']-user['starting-secs'])*60
                         user['accuracy'] = 100-(((user['ending-errs']-user['starting-errs'])/(user['ending-typed']-user['starting-typed']))*100)
-                        user['points'] = user['total-races']*(100+(user['wpm']/2))*user['accuracy']/100
+                        #user['points'] = user['total-races']*(100+(user['wpm']/2))*user['accuracy']/100
                     except:
                         user['wpm'] = 0
                         user['accuracy'] = 0
@@ -106,7 +121,7 @@ def update_comp(data, dbclient):
             if elem['username'] in res:
                 continue
             else:
-                players.append({
+                updated_players.append({
                     "username": elem['username'],
                     "starting-races": elem['played'],
                     "ending-races": elem['played'],
@@ -121,15 +136,23 @@ def update_comp(data, dbclient):
                 })
     except Exception as e:
         return
+    #data['players'] = updated_players
     dbclient.update_array(collection, old, data)
     return data
-def create_comp(compid, team, endcomptime, user):
+def create_comp(compid, team, startcomptime, endcomptime, user, no_data):
     dbclient = DBClient()
     does_compid_exist = dbclient.get_array(dbclient.db.test, {'compid': str(compid)})
     if does_compid_exist:
         return False, 'Compid already exists!'
     page = team_data(team)
     info = json.loads(page)
+    try:
+      if request.form['compdesc'] != None:
+        compdesc = request.form['compdesc']
+      else:
+        compdesc = "No Description has been provided."
+    except:
+      compdesc = "No Description has been provided."
     try:
       print(request.form['public-or-private'])
       public = True
@@ -159,7 +182,8 @@ def create_comp(compid, team, endcomptime, user):
             typed = 0
             secs = 0
             errs = 0
-        results['results']['players'].append({
+        if no_data == False:
+            results['results']['players'].append({
             "username": elem['username'],
             "starting-races": elem['played'],
             "ending-races": elem['played'],
@@ -177,8 +201,10 @@ def create_comp(compid, team, endcomptime, user):
         })
     results['results']['other'] = {
         "team": team,
-        "endcomptime": endcomptime,
+        "startcomptime": float(startcomptime),
+        "endcomptime": float(endcomptime),
         "author": user,
+        "compdesc": compdesc,
         "public": public,
         "ended": False
     }
@@ -188,6 +214,23 @@ def find_comps_by_username(username):
     dbclient = DBClient()
     comps = dbclient.db.test.find({'other.author': (username)})
     return comps
+  
+def find_comps_by_invite(username):
+    dbclient = DBClient()
+    mcomps = dbclient.db.test.find({'allowed': (username)})
+    return mcomps
+
+def find_comps_by_multiplayer(username):
+    dbclient = DBClient()
+    multicomps = dbclient.db.test.find({'$and': [{'allowed': (username)}, {'other.author': (username)}, {'other.type': 'private'}]})
+    return multicomps
+
+def convert_timestamp(timestamp):
+    from datetime import date
+    dbclient = DBClient()
+    endcomptime = dbclient.db.test.find({'other.endcomptime': (timestamp)})
+    converted = date.fromtimestamp(endcomptime).strftime('%d %B %Y')
+    return converted
 def delete_comp(compid, session):
     data, dbclient = get_comp_data(compid)
     creator = str(data['other']['author'])
@@ -209,7 +252,9 @@ def bkg_task():
                 continue
             else:
                 x['other']['ended'] = True
-                update_comp(x, dbclient)
+                #update_comp(x, dbclient)
+                #dbclient.update_array(dbclient.db.test, comps, x['other']['ended'])
+                break
         print('Updated All Comps - '+str(int(time.time())))
         time.sleep(60)
 
@@ -218,6 +263,24 @@ def invite_user(compid, user):
     try:
         comp_data['allowed'].append(user)
     except:
-        comp_data['allowed'] = [user]
+        comp_data['allowed'] = [user,]
     dbclient.update_array(dbclient.db.test, {"compid": compid}, comp_data)
     return
+  
+def convert_secs(seconds):
+  seconds_in_day = 60 * 60 * 24
+  seconds_in_hour = 60 * 60
+  seconds_in_minute = 60
+  days = seconds // seconds_in_day
+  hours = (seconds - (days * seconds_in_day)) // seconds_in_hour
+  minutes = (seconds - (days * seconds_in_day) - (hours * seconds_in_hour)) // seconds_in_minute
+  secs = (seconds - (days * seconds_in_day) - (hours * seconds_in_hour))%60
+  return f"{round(days)} day(s), {round(hours)}:{round(minutes)}:{round(secs)}"
+def timestamp(ts):
+  
+    return convert_secs(ts-time.time())  #rftime("%Y-%m-%d %H:%M:%S", time.localtime(ts-time.time()))
+
+def edit_compdesc(compdesc):
+    data, dbclient = get_comp_data(compdesc)
+    data = update_compdesc(data, dbclient)
+    compdesc = []

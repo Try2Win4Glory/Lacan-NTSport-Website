@@ -1,0 +1,49 @@
+
+        {% for x in players %}
+        <tr>
+          <td class='table-cell rank table-border '>
+                <center><span class="h3 tc-ts">
+{% if players.index(x)+1 == 1 %}
+                  <img src="https://cdn.discordapp.com/attachments/800326420924465153/969475174007197787/unknown.png">
+{% elif players.index(x)+1 == 2 %}
+                  <img src="https://cdn.discordapp.com/attachments/800326420924465153/969475213530112000/unknown.png">
+{% elif players.index(x)+1 == 3 %}
+                  <img src="https://cdn.discordapp.com/attachments/800326420924465153/969475244094017536/unknown.png">
+{% else %}
+                  {{players.index(x)+1}}
+{% endif %}
+                </span></center>
+            </td>
+               <center><div class='player-main'>
+                    </div></center>
+            </td>
+        <td>
+                          
+            <div class="name"><a style="text-decoration:none" href="https://www.nitrotype.com/racer/{{x[0]}}" target="_blank">{{x[1]}}</a></center>
+        </td>
+        <td>
+        <div class="username"><a  href="https://www.nitrotype.com/racer/{{x[0]}}" target="_blank" style="display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden">{{x[0]}}</a>
+        </td>
+        <td><center>
+            {{x[2][0]}}
+        </center></td>
+        <td><center>
+            {{x[2][2]}} 
+        </center></td>
+        <td><center>
+            {{x[2][3]}}%
+        </center></td>
+        <td><center>
+            {{x[2][1]}}
+        </center></td>
+        
+    <center>{% endfor %}
+
+
+
+<style>
+  
+.table-bronze {
+    border-color: rgba(236, 167, 44, 0.5);
+}
+</style>
