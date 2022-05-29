@@ -2,7 +2,7 @@
 #pip install cloudscraper==1.2.58
 import os
 
-os.system("pip install cloudscraper==1.2.58")
+#os.system("pip install cloudscraper==1.2.58")
 
 '''os.system("pip install zipp==3.4.1")
 os.system("pip install zipp==3.8.0")

@@ -18,9 +18,19 @@
                     </div></center>
             </td>
         <td>
-          <img src="{{x[3]}}" style="float:left"></img><div class="name"><a style="text-decoration:none" href="https://www.nitrotype.com/racer/{{x[0]}}" target="_blank">{{x[1]}}</a></center>
+          <img src="{{x[3]}}" style="float:center"></img></td>
+
+<td>
+  {% if x[5]=='gold' %}
+    <div class="name"><a style="text-decoration:none; float:center" href="https://www.nitrotype.com/racer/{{x[0]}}" target="_blank">{{x[1]}}</a>
+    <img src="https://cdn.discordapp.com/attachments/925374235797495829/980418436092010516/ezgif-1-1aa8f50450.png" width="25" hspace="5" style="float:left"></img>
+  {% else %}
+    <div class="name"><a style="text-decoration:none; float:center; color: white !important;" href="https://www.nitrotype.com/racer/{{x[0]}}" target="_blank">{{x[1]}}</a>
+  {% endif %}
+  <br><i style="font-weight: 400; float:center !important;">"{{x[4]}}"</i>
         </td>
-        <td>
+</center>
+<td>
         <div class="username"><a  href="https://www.nitrotype.com/racer/{{x[0]}}" target="_blank" style="display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden">{{x[0]}}</a>
         </td>
         <td><center>

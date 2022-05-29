@@ -26,6 +26,8 @@ def leaderboards(compid, category="races"):
     categorylist = []
     datalist = []
     c = []
+    title = []
+    membership = []
     for user in data['players']:
         try:
             car = '/cars/'+(get_car_from_id(user['carID']))
@@ -36,10 +38,11 @@ def leaderboards(compid, category="races"):
                 c.append(car)
         except:
             c.append('/cars/17_small_1.png')
-      
         if user['stillinteam'] == False:
           continue
         #print(user)
+        title.append(user['title'])
+        membership.append(user['membership'])
         user['wpm'] = round(float(user['wpm']),2)
         user['accuracy'] = round(float(user['accuracy']),2)
         user['points'] = round(float(user['points']),2)
@@ -66,7 +69,7 @@ def leaderboards(compid, category="races"):
             user['accuracy'] = 0
         datalist.append((user['total-races'], user['points'], user['wpm'], user['accuracy']))
     sortcategory = sorted(categorylist, reverse=True)
-    zipped_lists = zip(categorylist, usernames, displays, datalist, c)
+    zipped_lists = zip(categorylist, usernames, displays, datalist, c, title, membership)
     sorted_zipped_lists = sorted(zipped_lists, reverse=True)
     cleanresult = []
     for t in sorted_zipped_lists:
@@ -114,6 +117,8 @@ def update_comp(data, dbclient):
                     user['total-races'] = user['ending-races'] - user['starting-races']
                     user['display'] = elem['displayName']
                     user['stillinteam'] = True
+                    user["title"] = elem["title"]
+                    user["membership"] = elem["membership"]
                     user['ending-typed'] = typed
                     user['ending-secs'] = float(secs)
                     user['ending-errs'] = errs
@@ -142,6 +147,8 @@ def update_comp(data, dbclient):
                     "total-races": 0,
                     "display": elem['displayName'] or elem['username'],
                     "stillinteam": True,
+                    "title": elem['title'],
+                    "membership": elem['membership'],
                     "starting-typed": elem['typed'],
                     "ending-typed": elem['typed'], 
                     "starting-secs": float(elem['secs']), 
@@ -187,6 +194,10 @@ def create_comp(compid, team, startcomptime, endcomptime, user, no_data):
         }
     }
     for elem in info['results']['members']:
+        
+        title = elem['title']
+        membership = elem['membership']
+      
         if elem['displayName'] != None:
             displayname = elem['displayName']
         else:
@@ -207,6 +218,8 @@ def create_comp(compid, team, startcomptime, endcomptime, user, no_data):
             "total-races": 0,
             "display": displayname,
             "stillinteam": True,
+            "title": elem["title"],
+            "membership": elem["membership"],
             "starting-typed": typed,
             "ending-typed": typed, 
             "starting-secs": float(secs), 
@@ -314,8 +327,7 @@ def timestamp(ts):
     return convert_secs(ts-time.time())  #rftime("%Y-%m-%d %H:%M:%S", time.localtime(ts-time.time()))
 
 def get_all_cars():
-  #import re
-  requests = Racer('adl212').requests
+  requests = Racer('travis').requests
   text = requests.get('https://www.nitrotype.com/index/d8dad03537419610ef21782a075dde2d94c465c61266-1266/bootstrap.js').text
   result = re.search(r'(\[\{\"id\"\:\d+,\"carID\":\d+.*\]\])(?:,\[\"P)', text).group(1)
   cardata = '{"list": '+''.join(list(result)[:-1])+'}'
@@ -324,11 +336,9 @@ def get_all_cars():
 cardata = get_all_cars()
 def get_car_from_id(id):
   data = cardata
-  #print(data)
   for elem in data['list']:
         if int(id) in [elem['carID'], elem['id']]:
           carID = elem['options']['smallSrc']
-          #print(carID)
           return carID
 
 def edit_compdesc(compdesc):
