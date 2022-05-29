@@ -9,7 +9,7 @@ import cloudscraper, json, time, copy
 dbclient = DBClient()
 def get_player_comp_data(compid):
     #get collection first
-    collection = dbclient.db.player_comps # collection in the comps database named test for some reason lol
+    collection = dbclient.db.player_comps
     #now to get the data
     data = dbclient.get_array(collection, {'compid': compid})
     #now that we got the data let's parse the data and change it into leaderboards

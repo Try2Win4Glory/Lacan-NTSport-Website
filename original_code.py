@@ -35,7 +35,7 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"    # !! Only in development e
 app.config["DISCORD_CLIENT_ID"] = os.getenv("DISCORD_CLIENT_ID")
 app.config["DISCORD_CLIENT_SECRET"] = os.getenv("DISCORD_CLIENT_SECRET")
 app.config["DISCORD_BOT_TOKEN"] = os.getenv("DISCORD_BOT_TOKEN")
-app.config["DISCORD_REDIRECT_URI"] = "https://Official-LNS-Website.a1sauces.repl.co/oauth/callback"
+app.config["DISCORD_REDIRECT_URI"] = "https://ntsport.xyz/oauth/callback"
 
 discord = DiscordOAuth2Session(app)
 @app.route('/')
@@ -151,7 +151,7 @@ def comp_html(compid):
         data['allowed']
     except:
         data['allowed'] = []
-    return render_template('/3_competitions/team_data/comp_page.html', players=lb, link=f'https://Official-LNS-Website.a1sauces.repl.co/team-comp/{compid}', hours=hours, minutes=minutes, seconds=seconds, team=data['other']['team'], compdesc=compdesc, get_money=get_money, compid=compid, isauthor=isauthor, allowed=data['allowed'], **session)
+    return render_template('/3_competitions/team_data/comp_page.html', players=lb, link=f'https://ntsport.xyz/team-comp/{compid}', hours=hours, minutes=minutes, seconds=seconds, team=data['other']['team'], compdesc=compdesc, get_money=get_money, compid=compid, isauthor=isauthor, allowed=data['allowed'], **session)
 
 def player_comp_html(compid):
     args = request.args
@@ -179,7 +179,7 @@ def player_comp_html(compid):
         hours = timeleft[0]
         minutes = timeleft[1]
         seconds = timeleft[2]
-    return render_template('3_competititons/player_data/player_comp.html', players=lb, link=f'https://Official-LNS-Website.a1sauces.repl.co/player-comp/{compid}', hours=hours, minutes=minutes, seconds=seconds, racer=data['other']['racer'], get_money=get_money, **session)
+    return render_template('3_competititons/player_data/player_comp.html', players=lb, link=f'https://ntsport.xyz/player-comp/{compid}', hours=hours, minutes=minutes, seconds=seconds, racer=data['other']['racer'], get_money=get_money, **session)
 
 @app.route('/statistics/player/')
 def stats_player():

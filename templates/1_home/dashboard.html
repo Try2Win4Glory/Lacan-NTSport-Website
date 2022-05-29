@@ -1,3 +1,5 @@
+<!--        <td style="color:black" class="fa-solid fa-ellipsis-vertical" href="#myModal" data-toggle="modal" id="1" data-target="#edit-modal"></td>-->
+
 <!DOCTYPE html>
 <html lang="en">
    <style>
@@ -52,7 +54,7 @@
       
       <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
       <i class="fa fa-key text-left mr-1"></i> 
-      Password
+      Settings
       </a>
         <hr />
       </a>             
@@ -65,8 +67,13 @@
     <!--Scheduled Tab-->
       <div class="tab-pane fade" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
         <h3 class="mb-4">Scheduled Comps</h3>
-        This is where Scheduled Comps will show up.
+        View your Scheduled Competitions in the Team Comps Tab.
+      
       </div>
+
+
+
+        
 
     <!--Multiplayer Tab-->
       <div class="tab-pane fade" id="multiplayer" role="tabpanel" aria-labelledby="multiplayer-tab">
@@ -105,7 +112,7 @@
               <a href='https://www.nitrotype.com/team/{{x.other.team}}' target="_blank">{{x.other.team}}</a>
             </b>
           </td>
-          <td><a href="https://Official-LNS-Website.a1sauces.repl.co/team-comp/{{x.compid}}" target="_blank" style="color:#F9D034"><b>{{x.compid}}</b></a></td>
+          <td><a href="https://ntsport.xyz/team-comp/{{x.compid}}" target="_blank" style="color:#F9D034"><b>{{x.compid}}</b></a></td>
       <td style="color:white">{% if x['other']['public'] == True %}
       <a style="color:#4166f5" class="fa fa-lock-open"> Public</a>
       {% else %}
@@ -161,7 +168,7 @@
         {% for x in player_comps %}
       <tr>
       <td style="color:white"><b><a href='https://www.nitrotype.com/racer/{{x.other.player}}' target="_blank">{{x.other.player}}</a></b></td>
-      <td style="color:#F9D034"><b><a href="https://Official-LNS-Website.a1sauces.repl.co/player-comp/{{x.compid}}" target="_blank">{{x.compid}}</b></td>
+      <td style="color:#F9D034"><b><a href="https://ntsport.xyz/player-comp/{{x.compid}}" target="_blank">{{x.compid}}</b></td>
       <td style="color:#17a2b8"><b>{% for player in x.players %}{{player.username}}<br />{% endfor %}</b></td>
       <td style="color:#59FFA0"><b>
       {% if time.time() > x['other']['endcomptime'] %}
@@ -189,7 +196,7 @@
       <input
          type="text"
          class="form-control"
-         placeholder="Comp description"
+         placeholder="{{x.other.compdesc}}"
          />
       </div><br>
       <div class="form-edit" style="text-align:left">
@@ -215,8 +222,8 @@
         <div class="form-edit" style="text-align:left">
       <label><h1>Private <b>OR</b> Public</h1></label>
       <select id="dropdown" class="form-control">
-      <option value="Public">Public</option>
-      <option value="Private">Private</option>
+      <option value="true">Public</option>
+      <option value="false">Private</option>
       </select><br>
       <div class="form-edit" style="text-align:left";>
       <label>Pause/Resume </label>
@@ -226,8 +233,8 @@
       </select><br>
       <label>End Competition</label>
       <select id="endcomp" class="form-control">
-      <option value="endcompyes">Yes</option>
-      <option value="endcompno">No</option></select><br><br>
+      <option value="endcompyes">No</option>
+      <option value="endcompno">Yes</option></select><br><br>
         
       <center><input class="btn btn-primary" type="submit" value="Update">
       <button class="btn btn-light" href="#0">Cancel</button></center>
@@ -247,7 +254,7 @@
          function deleteplayercomp(compid) {
              var oReq = new XMLHttpRequest();
              oReq.addEventListener("load", reqListener);
-             oReq.open("POST", "https://Official-LNS-Website.a1sauces.repl.co/veryencryptedapiendpoint/deleteplayercomp");
+             oReq.open("POST", "https://ntsport.xyz/veryencryptedapiendpoint/deleteplayercomp");
              var formData = new FormData();
              formData.append('compid', compid)
              oReq.send(formData);
@@ -323,6 +330,8 @@
       <button class="btn btn-light">Cancel</button>
       </div>
       </div>
+
+<!--Team Comp Section-->
       <div class="tab-pane fade active show" id="application" role="tabpanel" aria-labelledby="application-tab">
       <h3 class="mb-4">Competitions Created</h3>
       <a class="btn btn-primary" href="/team-comp/create">+ Create Team Comp </a>
@@ -340,7 +349,13 @@
       <center>Time</center>
       </th>
       <th>
+        <center>Duration</center>
+      </th>
+      <th>
       <center>Public/Private</center>
+      </th>
+      <th>
+        <center>Start</center>
       </th>
       <!--th>
       <center>Link</center>
@@ -349,12 +364,12 @@
       <center>Edit</center>
       </th-->
       <th>Delete</th>
-      <th>Edit</th>  
+      <th>Edit</th>
       </tr>
       {% for x in comps %}
       <tr>
       <td style="color:white"><b><a href='https://www.nitrotype.com/team/{{x.other.team}}' target="_blank">{{x.other.team}}</a></b></td>
-      <td style="color:#F9D034"><b><a href="https://Official-LNS-Website.a1sauces.repl.co/team-comp/{{x.compid}}" target="_blank">{{x.compid}}</b></td>
+      <td style="color:#F9D034"><b><a href="https://ntsport.xyz/team-comp/{{x.compid}}" target="_blank">{{x.compid}}</b></td>
       <td style="color:#59FFA0"><b>
       {% if time.time() > x['other']['endcomptime'] %}
       Ended
@@ -363,6 +378,7 @@
       {% endif %}
       </b>
       </td>
+      <td style="">{{convert_secs(x.other.totalduration)}}</td>
       <td style="color:white">{% if x['other']['public'] == True %}
       <a style="color:#4166f5" class="fa fa-lock-open"> Public</a>
       {% else %}
@@ -370,7 +386,73 @@
       {% endif %} 
       {{type}}
       </td>
+
+      <td style="color:white">
+        {% if time.time() < x['other']['startcomptime'] %}
+      Scheduled (Starting in: {{convert_secs(x['other']['startcomptime']-time.time())}})
+      {% else %}
+        Started
+      {% endif %}
+      </td>  
         
+      <td id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header edit-comp">
+        <button type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="text-align: center" id="myModalLabel">Edit Competition</h4>
+      </div>
+      <div class="modal-body edit-content">
+              <div class="form-edit" style="text-align:left";>
+      <label>Description</label>
+      <input
+         type="text"
+         class="form-control"
+         placeholder="{{x.other.compdesc}}"
+        style="width: 65%"
+         />
+      </div><br>
+      <div class="form-edit" style="text-align:left">
+      <label id="email-label" for="email">Change Duration</label>
+      <div id="months-container" style="text-align:left">
+      <input type="radio" name="timetype" value="months" id="months" onchange="on_click()">
+      Months
+      </div>
+      <div id="days-container" style="text-align:left">
+      <input type="radio" name="timetype" value="days" id="days" onchange="on_click()">
+      Days
+      </div>
+      <div id="hours-container" style="text-align:left">
+      <input type="radio" name="timetype" value="hours" id="hours" onchange="on_click()">
+      Hours
+      </div>
+      <div id="minutes-container" style="text-align:left">
+      <input type="radio" name="timetype" value="minutes" id="minutes" onchange="on_click()">
+      Minutes
+      </div>
+      </div>
+      <br>
+        <div class="form-edit" style="text-align:left">
+      <label><h1>Private <b>OR</b> Public</h1></label>
+      <select id="dropdown" class="form-control" style="width:65%">
+      <option value="Public">Public</option>
+      <option value="Private">Private</option>
+      </select><br>
+      <div class="form-edit" style="text-align:left";>
+      <label>Pause/Resume </label>
+      <select id="pauseresume" class="form-control" style="width:65%">
+      <option value="Pause">Pause</option>
+      <option value="Resume">Resume</option>
+      </select><br>
+      <label>End Competition</label>
+      <select id="endcomp" class="form-control" style="width:65%">
+      <option value="endcompyes">Yes</option>
+      <option value="endcompno">No</option></select><br><br>
+      </div>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" style="text-align: left">Close</button></center>
+        <button type="button" class="btn btn-success" style="text-align: right;margin-left: 37.5%"> Save changes</button>
+      </td>
       <!--td>
       <a href="#popup1" class="btn_layout fa fa-edit" style="color:white"></a>
       <div id="popup1" class="popup">
@@ -425,6 +507,7 @@
       <button class="btn btn-light" href="#0">Cancel</button></center>
         <div class="flex items-center justify-center mt-7 mb-2"-->
        <td><a onclick="deletecomp('{{x.compid}}')" class="fa fa-trash" style="color:red; cursor:pointer"></a><td>
+       <td<a style="color:white; cursor:pointer" class="fa fa-edit" href="#myModal" data-toggle="modal" id="1" data-target="#edit-modal"></a></td>
       </tr>
       {% endfor %}
       </table>
@@ -438,7 +521,7 @@
          function deletecomp(compid) {
              var oReq = new XMLHttpRequest();
              oReq.addEventListener("load", reqListener);
-             oReq.open("POST", "https://Official-LNS-Website.a1sauces.repl.co/veryencryptedapiendpoint/delete");
+             oReq.open("POST", "https://ntsport.xyz/veryencryptedapiendpoint/delete");
              var formData = new FormData();
              formData.append('compid', compid)
              oReq.send(formData);
@@ -929,4 +1012,15 @@ label{
   transition-delay: 0s;
 }
 [x-cloak] { display: none; }
+
+  
+.edit-comp{
+  text-align: center;
+  font-size: 24px;
+  margin-right: 125px;
+}
+label{
+  font-size: 19px;
+  color: #181c24;
+}
 </style>

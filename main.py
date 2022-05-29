@@ -1,6 +1,24 @@
 #DO NOT RUN THE PROGRAM!
-from flask import Flask, render_template, request, redirect, session
-from backend.data.comp import leaderboards, create_comp, find_comps_by_username, find_comps_by_invite, find_comps_by_multiplayer, get_comp_data, delete_comp, update_comp, get_all_comps, bkg_task, invite_user, timestamp
+#pip install cloudscraper==1.2.58
+import os
+
+os.system("pip install cloudscraper==1.2.58")
+
+'''os.system("pip install zipp==3.4.1")
+os.system("pip install zipp==3.8.0")
+
+os.system("pip install click==8.0.1")
+os.system("pip install click==8.1.3")
+
+os.system("pip install h2==4.1.0")
+
+os.system("pip install importlib-metadata==3.10.1")
+os.system("pip install importlib-metadata==4.11.3")'''
+
+
+
+from flask import Flask, render_template, request, redirect, session, send_file
+from backend.data.comp import leaderboards, create_comp, find_comps_by_username, find_comps_by_invite, find_comps_by_multiplayer, find_comps_by_scheduled, get_comp_data, delete_comp, update_comp, get_all_comps, bkg_task, invite_user, timestamp, convert_secs, get_all_cars
 from backend.settings.password import change_password
 
 from backend.data.player import get_all_player_comps, create_player_comp, update_player_comp, player_leaderboards, get_player_comp_data, delete_player_comp, find_player_comps_by_username, add_player, remove_player_from_comp, player_bkg_task
@@ -41,7 +59,7 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"    # !! Only in development e
 app.config["DISCORD_CLIENT_ID"] = os.getenv("DISCORD_CLIENT_ID")
 app.config["DISCORD_CLIENT_SECRET"] = os.getenv("DISCORD_CLIENT_SECRET")
 app.config["DISCORD_BOT_TOKEN"] = os.getenv("DISCORD_BOT_TOKEN")
-app.config["DISCORD_REDIRECT_URI"] = "https://Official-LNS-Website.a1sauces.repl.co/oauth/callback"
+app.config["DISCORD_REDIRECT_URI"] = "https://ntsport.xyz/oauth/callback"
 
 discord = DiscordOAuth2Session(app)
   
@@ -217,7 +235,7 @@ def comp_html(compid):
         data['allowed']
     except:
         data['allowed'] = []
-    return render_template('/3_competitions/team_data/comp_page.html', players=lb, link=f'https://Official-LNS-Website.a1sauces.repl.co/team-comp/{compid}', hours=hours, minutes=minutes, seconds=seconds, team=data['other']['team'], compdesc=compdesc, get_money=get_money, compid=compid, isauthor=isauthor, allowed=data['allowed'], **session)
+    return render_template('/3_competitions/team_data/comp_page.html', players=lb, link=f'https://ntsport.xyz/team-comp/{compid}', hours=hours, minutes=minutes, seconds=seconds, team=data['other']['team'], compdesc=compdesc, get_money=get_money, compid=compid, isauthor=isauthor, allowed=data['allowed'], **session)
 
 def player_comp_html(compid):
     args = request.args
@@ -263,7 +281,7 @@ def player_comp_html(compid):
         data['allowed']
     except:
         data['allowed'] = []
-    return render_template('3_competitions/player_data/player_comp.html', players=lb, link=f'https://Official-LNS-Website.a1sauces.repl.co/player-comp/{compid}', hours=hours, minutes=minutes, seconds=seconds, racer=data['other']['player'], get_money=get_money, isauthor=isauthor, allowed=data['allowed'], compid=compid, **session)
+    return render_template('3_competitions/player_data/player_comp.html', players=lb, link=f'https://ntsport.xyz/player-comp/{compid}', hours=hours, minutes=minutes, seconds=seconds, racer=data['other']['player'], get_money=get_money, isauthor=isauthor, allowed=data['allowed'], compid=compid, **session)
 
 
 @app.route('/statistics/player/')
@@ -299,6 +317,11 @@ def dashboard():
     except:
         comps = find_comps_by_username(session['username'])
     try:
+        session['userid']
+        scomps = find_comps_by_scheduled(int(session['userid']))
+    except:
+        scomps = find_comps_by_scheduled(session['username'])
+    try:
       try:
         mcomps = find_comps_by_invite(int(session['userid']))
       except:
@@ -309,7 +332,7 @@ def dashboard():
         player_comps = find_player_comps_by_username(session['username'])
     except Exception as e:
       print(e)
-    return render_template('/1_home/dashboard.html', session=session, comps=comps, mcomps=mcomps, player_comps = player_comps, time=time, datetime=datetime, timestamp=timestamp, **session)
+    return render_template('/1_home/dashboard.html', session=session, comps=comps, mcomps=mcomps, player_comps = player_comps, time=time, datetime=datetime, timestamp=timestamp, convert_secs=convert_secs, scomps=scomps, **session)
 
 
 @app.route('/lnschat/')
@@ -854,7 +877,31 @@ def delete_player_comp_api():
     print(delete_comp(compid, session))
     return 'ok'
 
+@app.route('/cars/<file>')
+def return_car_and_cache(file):
+    import nitrotype
+    from os.path import exists
+    file_exists = exists('cars/'+file)
+    if file_exists:
+        return send_file('cars/'+file)
+    requests = nitrotype.Racer('tranq_').requests
+    bytes = requests.get('https://www.nitrotype.com/cars/'+file).content
+    with open('cars/'+file, 'wb') as f:
+        f.write(bytes)
+    return send_file('cars/'+file)
 
+@app.route('/cars/painted/<file>')
+def return_car_painted_and_cache(file):
+    import nitrotype
+    from os.path import exists
+    file_exists = exists('cars/painted/'+file)
+    if file_exists:
+        return send_file('cars/painted/'+file)
+    requests = nitrotype.Racer('tranq_').requests
+    bytes = requests.get('https://www.nitrotype.com/cars/painted/'+file).content
+    with open('cars/painted/'+file, 'wb') as f:
+        f.write(bytes)
+    return send_file('cars/painted/'+file)
 def bkg_player_task():
     while True:
         player_comps, dbclient = get_all_player_comps({'other.ended': False})
