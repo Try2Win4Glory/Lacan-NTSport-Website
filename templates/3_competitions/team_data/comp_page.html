@@ -47,8 +47,14 @@
 </h2>
 {% else %}
 {% endif %}
-<h3><center><p style="color:white">Time Left: <a 
- style="color:red">{{hours}}:{{minutes}}:{{seconds}}</a></p></center></h3><br></br>
+              
+{% if time.time() > startcomptime %}
+  <h3><center><p style="color:white">Time Left: <a 
+  style="color:red">{{hours}}:{{minutes}}:{{seconds}}</a></p>      </center></h3><br></br>
+{% else %}
+  <h3><center><p style="color:white">Starting in: <a 
+  style="color:red">{{shours}}:{{sminutes}}:{{sseconds}}</a></p>      </center></h3><br></br>  
+{% endif %}
   <table id="t01">
     <thead>
         <tr>

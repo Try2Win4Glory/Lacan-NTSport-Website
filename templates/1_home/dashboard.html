@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       {% with place="Dashboard" %} {% include "general/head.html" %} {% endwith %}
-      <hr/>
+
       <section class="text-gray-400 body-font bg-gray-900">
       <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-col text-center w-full mb-20">
@@ -98,6 +98,16 @@
           </th>
           <th>
             <center>
+              Duration
+            </center>
+          </th>
+          <th>
+            <center>
+              Public/Private
+            </center>
+          </th>
+          <th>
+            <center>
               Author
             </center>
           </th>
@@ -113,6 +123,17 @@
             </b>
           </td>
           <td><a href="https://ntsport.xyz/team-comp/{{x.compid}}" target="_blank" style="color:#F9D034"><b>{{x.compid}}</b></a></td>
+      <td style="color:#59FFA0"><b>
+      {% if time.time() > x['other']['endcomptime'] %}
+      Ended
+      {% else %}
+        {{timestamp(x['other']['endcomptime'])}}
+      {% endif %}
+      </b>
+      </td>
+
+      <td style="color: white">{{convert_secs(x.other.totalduration)}}</td>
+          
       <td style="color:white">{% if x['other']['public'] == True %}
       <a style="color:#4166f5" class="fa fa-lock-open"> Public</a>
       {% else %}
@@ -158,9 +179,9 @@
       <center>Public/Private</center>
       </th>
 
-      <th>
+      <!--th>
       <center>Edit</center>
-      </th>
+      </th-->
       <th>Delete</th>
       <th></th>
       </tr>
@@ -186,8 +207,8 @@
       {{type}}
       </td>
         
-      <td>
-      <a href="#popup1" class="btn_layout fa fa-edit" style="color:white"></a>
+      <!--td>
+      <a href="#popup1" class="btn_layout fa fa-edit" style="color:white"></a-->
       <div id="popup1" class="popup">
       <a href="#0" class="close">&times;</a>
       <form id="edit-comp">
@@ -352,6 +373,9 @@
         <center>Duration</center>
       </th>
       <th>
+        <center>Description</center>
+      </th>
+      <th>
       <center>Public/Private</center>
       </th>
       <th>
@@ -378,7 +402,13 @@
       {% endif %}
       </b>
       </td>
-      <td style="">{{convert_secs(x.other.totalduration)}}</td>
+      <td style="color: white">{{convert_secs(x.other.totalduration)}}</td>
+      {% if x.other.compdesc == "" %}
+        <td style="color: white;cursor:pointer" title="N/A">N/A</td>
+      {% else %}
+        <td style="color: white;cursor:pointer" title="{{x.other.compdesc}}">Hover</td>
+      {% endif %}
+        
       <td style="color:white">{% if x['other']['public'] == True %}
       <a style="color:#4166f5" class="fa fa-lock-open"> Public</a>
       {% else %}
@@ -389,9 +419,9 @@
 
       <td style="color:white">
         {% if time.time() < x['other']['startcomptime'] %}
-      Scheduled (Starting in: {{convert_secs(x['other']['startcomptime']-time.time())}})
+      <b>Scheduled</b> (Starting in: {{convert_secs(x['other']['startcomptime']-time.time())}})
       {% else %}
-        Started
+        <b>Started</b> ({{convert_secs(time.time()-x['other']['startcomptime'])}} ago)
       {% endif %}
       </td>  
         
@@ -406,11 +436,7 @@
       <div class="modal-body edit-content">
               <div class="form-edit" style="text-align:left";>
       <label>Description</label>
-      <input
-         type="text"
-         class="form-control"
-         placeholder="{{x.other.compdesc}}"
-        style="width: 65%"
+      <input type="text" class="form-control" placeholder="N/A" style="width: 65%"
          />
       </div><br>
       <div class="form-edit" style="text-align:left">
@@ -453,62 +479,10 @@
         <button type="button" class="btn btn-danger" data-dismiss="modal" style="text-align: left">Close</button></center>
         <button type="button" class="btn btn-success" style="text-align: right;margin-left: 37.5%"> Save changes</button>
       </td>
-      <!--td>
-      <a href="#popup1" class="btn_layout fa fa-edit" style="color:white"></a>
-      <div id="popup1" class="popup">
-      <a href="#0" class="close">&times;</a>
-      <form id="edit-comp">
-      <div class="form-edit" style="text-align:left";>
-      <label>Description</label>
-      <input
-         type="text"
-         class="form-control"
-         placeholder="Comp description"
-         />
-      </div><br>
-      <div class="form-edit" style="text-align:left">
-      <label id="email-label" for="email">Change Duration</label>
-      <div id="months-container" style="text-align:left">
-      <input type="radio" name="timetype" value="months" id="months" onchange="on_click()">
-      Months
-      </div>
-      <div id="days-container" style="text-align:left">
-      <input type="radio" name="timetype" value="days" id="days" onchange="on_click()">
-      Days
-      </div>
-      <div id="hours-container" style="text-align:left">
-      <input type="radio" name="timetype" value="hours" id="hours" onchange="on_click()">
-      Hours
-      </div>
-      <div id="minutes-container" style="text-align:left">
-      <input type="radio" name="timetype" value="minutes" id="minutes" onchange="on_click()">
-      Minutes
-      </div>
-      </div>
-      <br>
-        <div class="form-edit" style="text-align:left">
-      <label><h1>Private <b>OR</b> Public</h1></label>
-      <select id="dropdown" class="form-control">
-      <option value="Public">Public</option>
-      <option value="Private">Private</option>
-      </select><br>
-      <div class="form-edit" style="text-align:left";>
-      <label>Pause/Resume </label>
-      <select id="pauseresume" class="form-control">
-      <option value="Pause">Pause</option>
-      <option value="Resume">Resume</option>
-      </select><br>
-      <label>End Competition</label>
-      <select id="endcomp" class="form-control">
-      <option value="endcompyes">Yes</option>
-      <option value="endcompno">No</option></select><br><br>
-        
-      <center><input class="btn btn-primary" type="submit" value="Update">
-      <button class="btn btn-light" href="#0">Cancel</button></center>
-        <div class="flex items-center justify-center mt-7 mb-2"-->
-       <td><a onclick="deletecomp('{{x.compid}}')" class="fa fa-trash" style="color:red; cursor:pointer"></a><td>
-       <td<a style="color:white; cursor:pointer" class="fa fa-edit" href="#myModal" data-toggle="modal" id="1" data-target="#edit-modal"></a></td>
-      </tr>
+
+       <td onclick="deletecomp('{{x.compid}}')" class="fa fa-trash" style="color:red;cursor:pointer;margin-top: 15px"></a>
+       <td><a style="color:white; cursor:pointer" class="fa fa-edit" href="#myModal" data-toggle="modal" id="1" data-target="#edit-modal"></a></td>
+       </tr>
       {% endfor %}
       </table>
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -632,6 +606,34 @@
     background-color: gray;
 }
 
+/*.tooltip {
+  display: inline;
+  position: absolute;
+  margin-top: 50px;
+}
+.tooltip:hover:after{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background: #444;
+  border-radius: 8px;
+  color: #fff;
+  content: attr(title);
+  margin: -30px auto 0;
+  font-size: 20px;
+  width: 100px;
+}
+.tooltip:hover:before{
+  border: solid;
+  border-color: #444 transparent;
+  border-width: 12px 6px 0 6px;
+  content: "";
+  left: 45%;
+  bottom: 30px;
+  position: absolute;
+}*/
+  
 .dropdown.svelte-1wqnw5n .dropbtn.svelte-1wqnw5n {
     font-size: 16px;
     color: white;
@@ -646,7 +648,7 @@
     padding: 14px 16px;
     margin: 0px;
 }
-
+  
 .dropdown.svelte-1wqnw5n.svelte-1wqnw5n {
     float: left;
     overflow: hidden;

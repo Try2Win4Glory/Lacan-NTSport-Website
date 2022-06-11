@@ -41,11 +41,11 @@ def update_player_comp(data, dbclient):
         x['display'] = szn_data['displayName']
         try:
             x['wpm'] = (x['ending-typed']-x['starting-typed'])/5/float(x['ending-secs']-x['starting-secs'])*60
-        except ZeroDivisionError:
+        except:
             x['wpm'] = 0
         try:
             x['accuracy'] = 100-(((x['ending-errs']-x['starting-errs'])/(x['ending-typed']-x['starting-typed']))*100)
-        except ZeroDivisionError:
+        except:
             x['accuracy'] = 0
         x['points'] = x['ending-points'] - x['starting-points']
         x['total-races'] = x['ending-races'] - x['starting-races']

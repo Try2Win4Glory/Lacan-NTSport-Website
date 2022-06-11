@@ -9,6 +9,8 @@ def signup_account(**kwargs):
         return False, "This username is already taken!"
     except:
         pass
+    kwargs['premium'] = False
+    kwargs['expiresIn'] = 0
     kwargs['salt'] = os.urandom(64)
     kwargs.pop('psw-repeat')
     salt = hashlib.pbkdf2_hmac('sha256', kwargs['salt'], os.environ['salt_key'].encode(), 5000).hex().encode()
@@ -24,5 +26,7 @@ def discord_signup(userid):
     data = {}
     data['username'] = str(userid)
     data['discord_account'] = True
+    data['premium'] = False
+    data['expiresIn'] = 0
     dbclient.create_doc(collection, data)
     return True, ''

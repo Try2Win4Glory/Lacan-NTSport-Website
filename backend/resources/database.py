@@ -7,6 +7,8 @@ class DBClient:
         self.db = self.client.comps
     def get_array(self, collection, dict):
         return collection.find_one(dict)
+    def get_many(self, collection, dict):
+        return collection.find(dict)
     def update_array(self, collection, old, new, debug=False):
         replaceOne = collection.replace_one(old, new)
         if debug:

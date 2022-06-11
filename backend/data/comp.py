@@ -79,14 +79,14 @@ def leaderboards(compid, category="races"):
 def update_comp(data, dbclient):
     current_time = time.time()
     try:
-        print(data['other']['startcomptime'])
+        #print(data['other']['startcomptime'])
         if (int(data['other']['startcomptime']) > current_time) or (int(data['other']['endcomptime']) < current_time):
             #print('not updating')
             return data
     except:
         if int(data['other']['endcomptime']) < current_time:
             return data
-    print("updating")
+    #print("updating")
     old = copy.deepcopy(data)
     collection = dbclient.db.team_comps
     other = data['other']
@@ -321,7 +321,11 @@ def convert_secs(seconds):
   hours = (seconds - (days * seconds_in_day)) // seconds_in_hour
   minutes = (seconds - (days * seconds_in_day) - (hours * seconds_in_hour)) // seconds_in_minute
   secs = (seconds - (days * seconds_in_day) - (hours * seconds_in_hour))%60
-  return f"{round(days)} day(s), {round(hours)}:{round(minutes)}:{round(secs)}"
+  if round(days) > 1 or round(days) == 0:
+    appendthes = 's'
+  else:
+    appendthes = ''
+  return f"{round(days)} day{appendthes}, {round(hours)}:{round(minutes)}:{round(secs)}"
 def timestamp(ts):
   
     return convert_secs(ts-time.time())  #rftime("%Y-%m-%d %H:%M:%S", time.localtime(ts-time.time()))

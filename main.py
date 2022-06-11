@@ -2,18 +2,7 @@
 #pip install cloudscraper==1.2.58
 import os
 
-#os.system("pip install cloudscraper==1.2.58")
-
-'''os.system("pip install zipp==3.4.1")
-os.system("pip install zipp==3.8.0")
-
-os.system("pip install click==8.0.1")
-os.system("pip install click==8.1.3")
-
-os.system("pip install h2==4.1.0")
-
-os.system("pip install importlib-metadata==3.10.1")
-os.system("pip install importlib-metadata==4.11.3")'''
+os.system("pip install cloudscraper==1.2.58")
 
 
 
@@ -22,6 +11,8 @@ from backend.data.comp import leaderboards, create_comp, find_comps_by_username,
 from backend.settings.password import change_password
 
 from backend.data.player import get_all_player_comps, create_player_comp, update_player_comp, player_leaderboards, get_player_comp_data, delete_player_comp, find_player_comps_by_username, add_player, remove_player_from_comp, player_bkg_task
+
+from backend.premium.premium import get_premium_data, check_for_premium, get_all_accounts
 
 from backend.maintenance.maintenance import maintenance_function
 
@@ -41,7 +32,7 @@ from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthor
 import math
 import datetime
 import threading
-import json
+import json, copy
 
 def log(x, base=None):
     try:
@@ -204,6 +195,7 @@ def comp_html(compid):
         lb = leaderboards(compid, 'races')
 
     endcomptime = data['other']['endcomptime']
+    startcomptime = data['other']['startcomptime']
     if time.time() > endcomptime:
         hours = 0
         minutes = 0
@@ -214,6 +206,19 @@ def comp_html(compid):
         hours = timeleft[0]
         minutes = timeleft[1]
         seconds = timeleft[2]
+
+    if time.time() < startcomptime:
+        timetostart = startcomptime - round(time.time())
+        timetostart = str(datetime.timedelta(seconds=timetostart)).split(':')
+        shours = timetostart[0]
+        sminutes = timetostart[1]
+        sseconds = timetostart[2]
+    else:
+      timetostart = 0
+      shours = 0
+      sminutes = 0
+      sseconds = 0
+      
     compdesc = None
     try:
       if data['other']['compdesc'] != None:
@@ -235,7 +240,7 @@ def comp_html(compid):
         data['allowed']
     except:
         data['allowed'] = []
-    return render_template('/3_competitions/team_data/comp_page.html', players=lb, link=f'https://ntsport.xyz/team-comp/{compid}', hours=hours, minutes=minutes, seconds=seconds, team=data['other']['team'], compdesc=compdesc, get_money=get_money, compid=compid, isauthor=isauthor, allowed=data['allowed'], **session)
+    return render_template('/3_competitions/team_data/comp_page.html', players=lb, link=f'https://ntsport.xyz/team-comp/{compid}', endcomptime=endcomptime, startcomptime=startcomptime, hours=hours, minutes=minutes, seconds=seconds, shours=shours, sminutes=sminutes, sseconds=sseconds, team=data['other']['team'], compdesc=compdesc, get_money=get_money, compid=compid, isauthor=isauthor, allowed=data['allowed'], time=time, **session)
 
 def player_comp_html(compid):
     args = request.args
@@ -544,6 +549,14 @@ def news():
   else:
     return render_template('7_news/news.html', **session)
 
+@app.route('/post/release/')
+def post1():
+  if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
+    return redirect('/coming-soon')
+  else:
+    return render_template('7_news/posts/post1.html', **session)
+    
+
 @app.route('/updates/')
 def updates():
   if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
@@ -588,6 +601,10 @@ def login_api():
     if login_success:
         session['logged_in'] = True
         session['username'] = username
+        # Keep Commented out! - Adds new inserts to all accounts.
+        '''if username == "test":
+          add_to_everyone()'''
+        # Redirect to Dashboard
         return redirect('/dashboard')
     else:
         session['login_error_message'] = "No account found with these credentials!"
@@ -636,6 +653,25 @@ def comp_create():
     except:
         pass
     return render_template('/3_competitions/team_data/make_comp.html', message=message, **session)
+
+@app.route('/premium/')
+def premiuminfo():
+  if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
+    return redirect('/coming-soon')
+  else:
+    return render_template('/9_premium/premium-info.html', **session)
+
+@app.route('/upgrade/')
+def upgrade():
+  if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
+    return redirect('/coming-soon')
+  else:
+    user = session['username']
+    premium = check_for_premium(user)
+    if premium[0]==True:
+      return redirect('/dashboard')
+    else:
+      return render_template('/9_premium/upgrade.html', premium=premium, **session)
 
 @app.route('/lnsgames/hangman/')
 def lns_hangman():
@@ -716,10 +752,11 @@ def create_api():
     except:
       public = "False"
 
-    no_data = False
+    no_data = True
+    print(request.form['start-timestamp'])
     if request.form['start-timestamp'] == "":
         start_timestamp = time.time()
-        no_data = True
+        no_data = False
     else:
         start_timestamp = int(request.form['start-timestamp'])/1000
     timetype = request.form['timetype']
@@ -934,8 +971,37 @@ def bkg_task():
                 update_comp(x, dbclient)
         print('[+] Updated All Team Comps - '+str(int(time.time())))
         time.sleep(60)
+
+def bkg_premium_task():
+    while True:
+        accounts = list(get_all_accounts({'premium': True}))
+        dbclient = accounts
+        for x in accounts:
+          from backend.resources.database import DBClient
+          dbclient = DBClient()
+          collection = dbclient.db.accounts
+          print(f'{x["username"]}:{x["expiresIn"]}')
+          if int(x["expiresIn"]) > 0:
+              expiresIn = x["expiresIn"]-1
+              query = { "premium": True, "username": x["username"] }
+              print(query)
+              new = { "$set": { "expiresIn": expiresIn } }
+              collection.update_many(query, new)
+              continue
+          else:
+              x["expiresIn"] = 0
+              x["premium"] = False
+              query = { "expiresIn": 0 }
+              new = { "$set": { "premium": False } }
+
+              collection.update_many(query, new)
+              continue
+        time.sleep(1)
+
 thread = threading.Thread(target=bkg_task)
 thread.start()
 thread1 = threading.Thread(target=player_bkg_task)
 thread1.start()
+thread2 = threading.Thread(target=bkg_premium_task)
+thread2.start()
 app.run(host='0.0.0.0')
