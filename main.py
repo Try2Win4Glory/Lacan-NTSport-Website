@@ -28,7 +28,7 @@ import os
 from backend.login.login import login_account, discord_login
 import time
 import random, string
-from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
+#from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
 import math
 import datetime
 import threading
@@ -52,7 +52,7 @@ app.config["DISCORD_CLIENT_SECRET"] = os.getenv("DISCORD_CLIENT_SECRET")
 app.config["DISCORD_BOT_TOKEN"] = os.getenv("DISCORD_BOT_TOKEN")
 app.config["DISCORD_REDIRECT_URI"] = "https://ntsport.xyz/oauth/callback"
 
-discord = DiscordOAuth2Session(app)
+#discord = DiscordOAuth2Session(app)
   
 @app.route('/coming-soon/')
 def coming_soon():
@@ -337,7 +337,32 @@ def dashboard():
         player_comps = find_player_comps_by_username(session['username'])
     except Exception as e:
       print(e)
-    return render_template('/1_home/dashboard.html', session=session, comps=comps, mcomps=mcomps, player_comps = player_comps, time=time, datetime=datetime, timestamp=timestamp, convert_secs=convert_secs, scomps=scomps, **session)
+
+    # Check Premium Status
+    from backend.resources.database import DBClient
+    dbclient = DBClient()
+    collection = dbclient.db.accounts
+    logged_in_as = session['username']
+    team_comps_collection = dbclient.db.team_comps
+    teamdata = dbclient.get_many(team_comps_collection, {'other.author': logged_in_as})
+    team_compsCreated = 0
+    for team_comp in teamdata:
+      team_compsCreated += 1
+    player_comps_collection = dbclient.db.player_comps
+    playerdata = dbclient.get_many(player_comps_collection, {'other.author': logged_in_as})
+    player_compsCreated = 0
+    for player_comp in playerdata:
+      player_compsCreated += 1
+    data = dbclient.get_array(collection, {"username": logged_in_as})
+    ntaccount = data["nt_user"]
+    premium = data["premium"]
+    expiresIn = data["expiresIn"]
+    if premium == True:
+      membership = 'Premium'
+    else:
+      membership = 'Basic'
+    
+    return render_template('/1_home/dashboard.html', session=session, comps=comps, mcomps=mcomps, player_comps = player_comps, time=time, datetime=datetime, timestamp=timestamp, convert_secs=convert_secs, scomps=scomps, logged_in_as=logged_in_as, ntaccount=ntaccount, premium=premium, expiresIn=expiresIn, membership=membership, team_compsCreated=team_compsCreated, player_compsCreated=player_compsCreated, **session)
 
 
 @app.route('/lnschat/')
@@ -654,12 +679,40 @@ def comp_create():
         pass
     return render_template('/3_competitions/team_data/make_comp.html', message=message, **session)
 
-@app.route('/premium/')
-def premiuminfo():
+@app.route('/buy-premium/')
+def buypremiuminfo():
   if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
     return redirect('/coming-soon')
   else:
-    return render_template('/9_premium/premium-info.html', **session)
+    return render_template('/9_premium/buy-premium.html', **session)
+
+@app.route('/ty-premium/')
+def typremium():
+  if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
+    return redirect('/coming-soon')
+  else:
+    try:
+      if not session['logged_in']:
+            return redirect('/login')
+    except:
+      return redirect('/login')
+    username=session["username"]
+    from backend.resources.database import DBClient
+    dbclient = DBClient()
+    collection = dbclient.db.accounts
+    data =dbclient.get_array(collection, {"username": username})
+    if data['premium'] != True:
+      return redirect('/upgrade')
+    expiresIn = data["expiresIn"]
+    return render_template('/9_premium/ty-premium.html', expiresIn=expiresIn, **session)
+
+
+@app.route('/buy-premium/')
+def notpremium():
+  if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
+    return redirect('/coming-soon')
+  else:
+    return render_template('/9_premium/notpremium.html', **session)
 
 @app.route('/upgrade/')
 def upgrade():
@@ -669,7 +722,7 @@ def upgrade():
     user = session['username']
     premium = check_for_premium(user)
     if premium[0]==True:
-      return redirect('/dashboard')
+      return redirect('/ty-premium')
     else:
       return render_template('/9_premium/upgrade.html', premium=premium, **session)
 
@@ -980,23 +1033,26 @@ def bkg_premium_task():
           from backend.resources.database import DBClient
           dbclient = DBClient()
           collection = dbclient.db.accounts
-          print(f'{x["username"]}:{x["expiresIn"]}')
-          if int(x["expiresIn"]) > 0:
-              expiresIn = x["expiresIn"]-1
-              query = { "premium": True, "username": x["username"] }
-              print(query)
-              new = { "$set": { "expiresIn": expiresIn } }
-              collection.update_many(query, new)
-              continue
+          #print(f'{x["username"]}: {x["expiresIn"]}')
+          if x["expiresIn"] != '∞':
+            if int(x["expiresIn"]) > 0:
+                expiresIn = x["expiresIn"]-1
+                query = { "premium": True, "username": x["username"] }
+                print(query)
+                new = { "$set": { "expiresIn": expiresIn } }
+                collection.update_many(query, new)
+                continue
+            else:
+                x["expiresIn"] = 0
+                x["premium"] = False
+                query = { "expiresIn": 0 }
+                new = { "$set": { "premium": False } }
+  
+                collection.update_many(query, new)
+                continue
           else:
-              x["expiresIn"] = 0
-              x["premium"] = False
-              query = { "expiresIn": 0 }
-              new = { "$set": { "premium": False } }
-
-              collection.update_many(query, new)
-              continue
-        time.sleep(1)
+            pass
+        time.sleep(60)
 
 thread = threading.Thread(target=bkg_task)
 thread.start()

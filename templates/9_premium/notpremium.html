@@ -8,10 +8,31 @@
       }
    </style>
    <head>
-      {% with place="Premium" %} {% include "general/head.html" %} {% endwith %}
+      {% with place="Purchase Premium" %} {% include "general/head.html" %} {% endwith %}
+
+<div class=content>
+  <div class="wrapper-1">
+    <div class="wrapper-2">
+      <h1>Buy Premium</h1>
+      <p style="text-align:center">Benefits of purchasing premium:<br></p>
+      <p><br>→ <a style="color:red"> <b>1</b> team of your choice to create a daily and weekly statistics tracker for!</a></p>
+      <p>→ <a style="color:red">Schedule a competition 24 hrs+ in advance!</a></p>
+      <p>→ <a style="color:red"></a>Host more than  5+ competitions in 24 hrs</p>
+      <p>→ <a style="color:red"></a></p>
+      <button class="go-home" href="/">
+      Back To Home
+      </button>
+    </div>
+    <div class="footer-like">
+      <p>Purchase Premium Today!
+       <a href="#">Click Here To Purchase Premium</a>
+      </p>
+    </div>
+</div>
+</div>
+<br><br><br>
 
      
-
       <hr />
       <footer class="text-gray-400 bg-gray-900 body-font">
          <div
@@ -63,6 +84,9 @@
     padding: 10px 0.5em;
     border-radius: 7px;
     background-color: gray;
+}
+.blink-triangle {
+  
 }
 .invalid-contain{
   width: 100%;
@@ -125,3 +149,85 @@
   text-decoration: none;
   display: block;
 }
+
+*{
+  box-sizing:border-box;
+ /* outline:1px solid ;*/
+}
+
+body {
+  background-color: #111827;
+}
+  
+.wrapper-1{
+  width:100%;
+  height:100vh;
+  display: flex;
+flex-direction: column;
+}
+.wrapper-2{
+  padding :30px;
+  text-align:center;
+}
+h1{
+  font-family: 'Kaushan Script', cursive;
+  font-size:4em;
+  letter-spacing:3px;
+  color:#5892FF ;
+  margin:0;
+  margin-bottom:20px;
+}
+.wrapper-2 p{
+  font-size:1.3em;
+  color:#aaa;
+  font-family: 'Source Sans Pro', sans-serif;
+  letter-spacing:1px;
+  text-align: left;
+}
+.go-home{
+  color:#fff;
+  background:#5892FF;
+  border:none;
+  padding:10px 50px;
+  margin:30px 0;
+  border-radius:30px;
+  text-transform:capitalize;
+  box-shadow: 0 10px 16px 1px rgba(174, 199, 251, 1);
+}
+.footer-like{
+  margin-top: auto; 
+  background:#D7E6FE;
+  padding:6px;
+  text-align:center;
+}
+.footer-like p{
+  margin:0;
+  padding:4px;
+  color:#5892FF;
+  font-family: 'Source Sans Pro', sans-serif;
+  letter-spacing:1px;
+}
+.footer-like p a{
+  text-decoration:none;
+  color:#5892FF;
+  font-weight:600;
+}
+
+@media (min-width:360px){
+  h1{
+    font-size:4.5em;
+  }
+  .go-home{
+    margin-bottom:20px;
+  }
+}
+
+  .wrapper-1{
+  height: initial;
+  max-width:700px;
+  margin:0 auto;
+  margin-top:50px;
+  box-shadow: 4px 8px 40px 8px rgba(88, 146, 255, 0.2);
+}
+  
+</style>

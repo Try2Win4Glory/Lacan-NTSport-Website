@@ -47,14 +47,14 @@
       <i class="fa fa-user-plus text-left mr-1" style="text-align: left"></i> 
       Player Comp
       </a>
-      <a class="nav-link" id="scheduled-tab" data-toggle="pill" href="#scheduled" role="tab" aria-controls="scheduled" aria-selected="false">
+      <a class="nav-link" id="archived-tab" data-toggle="pill" href="#archived" role="tab" aria-controls="archived" aria-selected="false">
       <i class="fa fa-calendar text-left mr-1"></i> 
-      Scheduled
+      Archived
       </a>
       
       <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
       <i class="fa fa-key text-left mr-1"></i> 
-      Settings
+      Account
       </a>
         <hr />
       </a>             
@@ -64,10 +64,10 @@
       <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
 
 
-    <!--Scheduled Tab-->
-      <div class="tab-pane fade" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
-        <h3 class="mb-4">Scheduled Comps</h3>
-        View your Scheduled Competitions in the Team Comps Tab.
+    <!--Archived Tab-->
+      <div class="tab-pane fade" id="archived" role="tabpanel" aria-labelledby="archived-tab">
+        <h3 class="mb-4">Archived Comps</h3>
+        Archive your Comps - Coming Soon!
       
       </div>
 
@@ -290,8 +290,8 @@
         
         
       <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
-      <h3 class="mb-4">Password Settings</h3>
-      <form action='/veryencryptedapiendpoint/settings/password' method='post'>
+      <h3 class="mb-4">Account Details</h3>
+      <!--form action='/veryencryptedapiendpoint/settings/password' method='post'>
       <div class="row">
       <div class="col-md-6">
       <div class="form-group">
@@ -319,8 +319,25 @@
       <button class="btn btn-light">Cancel</button>
       </div>
       </form>
+      </div-->
+      <div class="acctinfo">
+        <b>→ Username:</b> {{logged_in_as}}
+        <br>→	<b>Nitrotype Account:</b> <a href="https://nitrotype.com/racer/{{ntaccount}}" target="_blank">{{ntaccount}}</a>
+        {% if premium == True %}
+          <br>→	<b>Membership:</b> <b style="color:#DAA520 !important;">{{membership}}💎</b> (expires in: {{expiresIn}})
+        {% else %}
+          <br> →	<b>Membership:</b> {{membership}}😢
+          <a href="/upgrade" class="btn btn-primary" id="upgradebutton" style="background-color:#DAA520 !important; border: None !important;"><div id="dub-arrow"><img src="https://media.discordapp.net/attachments/983683196900225064/985473011790512158/upgradepremium.png" alt="" /></div>Upgrade to 💎</a>
+        {% endif %}
+        <br>→	<b>Team Competitions:</b> {{team_compsCreated}}
+        <br>→ <b>Player Competitions:</b> {{player_compsCreated}}
       </div>
-      <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+      </div>
+
+        
+      <!--
+        Another Tab, we don't need another one yet though.
+        div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
       <h3 class="mb-4">Security Settings</h3>
       <div class="row">
       <div class="col-md-6">
@@ -350,7 +367,7 @@
       <button class="btn btn-primary">Update</button>
       <button class="btn btn-light">Cancel</button>
       </div>
-      </div>
+      </div-->
 
 <!--Team Comp Section-->
       <div class="tab-pane fade active show" id="application" role="tabpanel" aria-labelledby="application-tab">
@@ -833,6 +850,9 @@ h3, .h3 {
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
+.acctinfo{
+  text-align:left;
+}
 
 </style>
 
@@ -1014,7 +1034,45 @@ label{
   transition-delay: 0s;
 }
 [x-cloak] { display: none; }
+  
+#upgradebutton {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
 
+#upgradebutton a {
+  position: relative;
+  left: 0;
+  transition: all .35s ease-Out;
+}
+
+#dub-arrow {
+  width: 100%;
+  height: 100%;
+  background: #DAA520;
+  left: -200px;
+  position: absolute;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .35s ease-Out;
+  bottom: 0;
+}
+
+#upgradebutton img {
+  width: 20px;
+  height: auto;
+}
+
+#upgradebutton:hover #dub-arrow {
+  left: 0;
+}
+
+#upgradebutton:hover a {
+  left: 150px;
+}
   
 .edit-comp{
   text-align: center;
