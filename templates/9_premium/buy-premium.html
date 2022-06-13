@@ -8,92 +8,29 @@
       }
    </style>
    <head>
-      {% with place="Upgrade-premium" %} {% include "general/head.html" %} {% endwith %}
+      {% with place="Upgrade" %} {% include "general/head.html" %} {% endwith %}
 
-
-     <div class="container">
-  <div class="title">
-      <h2>LNS Premium Purchase</h2>
-  </div>
-<div class="d-flex">
-  <form action="" method="">
-    <label>
-      <span>Usename<span class="required">*</span></span>
-      <input type="text" name="fname" placeholder="{{session.username}}">
-    </label>
-    <label>
-      <span class="lname">Last Name <span class="required">*</span></span>
-      <input type="text" name="lname">
-    </label>
-    <label>
-      <span>Company Name (Optional)</span>
-      <input type="text" name="cn">
-    </label>
-
-    <label>
-      <span>Street Address <span class="required">*</span></span>
-      <input type="text" name="houseadd" placeholder="House number and street name" required>
-    </label>
-    <label>
-      <span>&nbsp;</span>
-      <input type="text" name="apartment" placeholder="Apartment, suite, unit etc. (optional)">
-    </label>
-    <label>
-      <span>Town / City <span class="required">*</span></span>
-      <input type="text" name="city"> 
-    </label>
-    <label>
-      <span>State / County <span class="required">*</span></span>
-      <input type="text" name="city"> 
-    </label>
-    <label>
-      <span>Postcode / ZIP <span class="required">*</span></span>
-      <input type="text" name="city"> 
-    </label>
-    <label>
-      <span>Phone <span class="required">*</span></span>
-      <input type="tel" name="city"> 
-    </label>
-    <label>
-      <span>Email Address <span class="required">*</span></span>
-      <input type="email" name="city"> 
-    </label>
+<div class="login-box">
+  <h2><b>LNS PREMIUM</b></h2>
+  <form style="color:white;">
+    <div class="user-box">
+      <label>Premium Purchase for: <input type="text" placeholder="Username" value={{session.username}} required style="color:#DAA520">
+      </label>
+    </div>
+    <div class="user-box">
+      <label><input type="password" placeholder="Enter your Password" required></input></label>
+    </div>
+    <div class="user-box">
+      <input type="checkbox" style="alignment:left !immportant;" required></input>I have read and agreed to our Premium Terms.
+    </div>
+    <a href="#">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Purchase 💎
+    </a>
   </form>
-  <div class="Yorder">
-    <table>
-      <tr>
-        <th colspan="2">Your order</th>
-      </tr>
-      <tr>
-        <td>Product Name x 2(Qty)</td>
-        <td>$88.00</td>
-      </tr>
-      <tr>
-        <td>Subtotal</td>
-        <td>$88.00</td>
-      </tr>
-      <tr>
-        <td>Shipping</td>
-        <td>Free shipping</td>
-      </tr>
-    </table><br>
-    <div>
-      <input type="radio" name="dbt" value="dbt" checked> Direct Bank Transfer
-    </div>
-    <p>
-        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-    </p>
-    <div>
-      <input type="radio" name="dbt" value="cd"> Cash on Delivery
-    </div>
-    <div>
-      <input type="radio" name="dbt" value="cd"> Paypal <span>
-      <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50">
-      </span>
-    </div>
-    <button type="button" class="porder">Place Order</button>
-  </div><!-- Yorder -->
- </div>
 </div>
 
       <hr />
@@ -148,6 +85,171 @@
     border-radius: 7px;
     background-color: gray;
 }
+body {
+  background-color: #111827;
+}
+.input {
+    outline: none;
+    display: block;
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+}
+
+.login-box {
+  position: relative;
+  margin-top: 25%;
+  left: 50%;
+  width: 700px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+
+
+.login-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 4px
+}
+
+.login-box a:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.login-box a span {
+  position: absolute;
+  display: block;
+}
+
+.login-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.login-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.login-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.login-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+
 .invalid-contain{
   width: 100%;
   height: auto;
@@ -208,127 +310,5 @@
   padding: 12px 16px;
   text-decoration: none;
   display: block;
-}
-
-body{
-  background-color: #111827;
-}
-.container{
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: 5%;
-  margin-left: 2.5%;
-  margin-top: 5%;
-  margin-bottom: 5%;
-}
-
-.d-flex{
-  display: flex;
-  flex-direction: row;
-  background: #f6f6f6;
-  border-radius: 0 0 5px 5px;
-}
-form{
-  flex: 4;
-}
-.Yorder{
-  flex: 2;
-}
-.title{
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #5195A8), color-stop(100, #70EAFF));
-  background: -moz-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-  background: -ms-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-  background: -o-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-  background: linear-gradient(to bottom right, #5195A8 0%, #70EAFF 100%);
-  border-radius:5px 5px 0 0 ;
-  padding: 20px;
-  font-size: 18px;
-  color: #f6f6f6;
-  text-align: center;
-}
-h2{
-  margin: 0;
-  padding-left: 15px; 
-}
-.required{
-  color: red;
-}
-label, table{
-  display: block;
-  margin: 15px;
-}
-label>span{
-  float: left;
-  width: 25%;
-  margin-top: 12px;
-  padding-right: 10px;
-}
-input[type="text"], input[type="tel"], input[type="email"], select
-{
-  width: 70%;
-  height: 30px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-  border: 1px solid #dadada;
-  color: #888;
-}
-select{
-  width: 72%;
-  height: 45px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-}
-.Yorder{
-  margin-top: 15px;
-  height: 600px;
-  padding: 20px;
-  border: 1px solid #dadada;
-}
-table{
-  margin: 0;
-  padding: 0;
-}
-th{
-  border-bottom: 1px solid #dadada;
-  padding: 10px 0;
-}
-tr>td:nth-child(1){
-  text-align: left;
-  color: #2d2d2a;
-}
-tr>td:nth-child(2){
-  text-align: right;
-  color: #52ad9c;
-}
-td{
-  border-bottom: 1px solid #dadada;
-  padding: 25px 25px 25px 0;
-}
-
-p{
-  display: block;
-  color: #888;
-  margin: 0;
-  padding-left: 25px;
-}
-.Yorder>div{
-  padding: 15px 0; 
-}
-
-.porder{
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 30px;
-  background: #52ad9c;
-  color: #fff;
-  font-size: 15px;
-  font-weight: bold;
-}
-.porder:hover{
-  cursor: pointer;
-  background: #428a7d;
 }
 </style>

@@ -707,12 +707,12 @@ def typremium():
     return render_template('/9_premium/ty-premium.html', expiresIn=expiresIn, **session)
 
 
-@app.route('/buy-premium/')
-def notpremium():
+@app.route('/premium/')
+def premium():
   if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
     return redirect('/coming-soon')
   else:
-    return render_template('/9_premium/notpremium.html', **session)
+    return render_template('/9_premium/premium.html', **session)
 
 @app.route('/upgrade/')
 def upgrade():
@@ -793,6 +793,10 @@ def account_settings():
     except:
         pass
     return render_template('in_work/settings.html', message=message, **session)
+
+@app.route('/404')
+def error():
+  return render_template('general/404.html')
   
 @app.route('/veryencryptedapiendpoint/team-comp/create', methods=['POST'])
 def create_api():
@@ -815,6 +819,17 @@ def create_api():
     timetype = request.form['timetype']
     thetime = int(request.form['timeamount'])
     endcomptime = int(start_timestamp)
+
+    premiumstatus = check_for_premium(session['username'])
+    premium = premiumstatus[0]
+    expiresIn = premiumstatus[1]
+    startcomptime = start_timestamp
+    if premium != True and startcomptime-time.time() > 86400:
+      print('no perms to create this comp')
+      return redirect('/premium')
+    else:
+      pass
+    
     if timetype == 'months':
         endcomptime += 2592000*int(thetime)
     if timetype == 'days':
@@ -828,8 +843,8 @@ def create_api():
         team = request.form['team']
         try:
             try:
-                session['userid']
-                success, message = create_comp(compid, team, start_timestamp, endcomptime, user=session['userid'], no_data=no_data)
+                session['username']
+                success, message = create_comp(compid, team, start_timestamp, endcomptime, user=session['username'], no_data=no_data)
             except:
                 success, message = create_comp(compid, team, start_timestamp, endcomptime, user=session['username'], no_data=no_data)
             if success:

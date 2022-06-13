@@ -3,6 +3,7 @@ from flask import request
 from nitrotype import Racer
 import jsonpickle, random
 import cloudscraper, json, time, copy, re
+from flask import redirect
 dbclient = DBClient() 
 def get_comp_data(compid):
     #get collection first
@@ -168,6 +169,9 @@ def create_comp(compid, team, startcomptime, endcomptime, user, no_data):
     if does_compid_exist:
         return False, 'Compid already exists!'
     totalduration = int(endcomptime) - int(startcomptime)
+
+
+  
     page = team_data(team)
     info = json.loads(page)
     try:
