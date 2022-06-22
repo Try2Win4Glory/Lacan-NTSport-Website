@@ -8,27 +8,25 @@ os.system("pip install cloudscraper==1.2.58")
 
 from flask import Flask, render_template, request, redirect, session, send_file
 from backend.data.comp import leaderboards, create_comp, find_comps_by_username, find_comps_by_invite, find_comps_by_multiplayer, find_comps_by_scheduled, get_comp_data, delete_comp, update_comp, get_all_comps, bkg_task, invite_user, timestamp, convert_secs, get_all_cars
-from backend.settings.password import change_password
+from backend.settings.password import change_password 
 
 from backend.data.player import get_all_player_comps, create_player_comp, update_player_comp, player_leaderboards, get_player_comp_data, delete_player_comp, find_player_comps_by_username, add_player, remove_player_from_comp, player_bkg_task
 
 from backend.premium.premium import get_premium_data, check_for_premium, get_all_accounts
 
+from backend.data.premium import BankAccount
+
 from backend.maintenance.maintenance import maintenance_function
 
-'''
-from backend.data.player import create_player_comp
-from backend.data.player import update_player_comp 
-from backend.data.player import player_leaderboard 
-from backend.data.player import get_player_comp_data
-'''
+from backend.resources.database import DBClient
+
 
 from backend.signup.signup import signup_account, discord_signup
 import os
 from backend.login.login import login_account, discord_login
 import time
 import random, string
-#from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
+from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
 import math
 import datetime
 import threading
@@ -42,8 +40,11 @@ def log(x, base=None):
 def get_money(a, w, r):
     value = (a*log(w*w, 2)*(1+(a/10))+(1250*(5-(100-a))))*r
     return value if value > 0 else 0
-  
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 app = Flask(__name__)
+
 app.secret_key = os.environ['app_key']
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"    # !! Only in development environment.
 
@@ -52,7 +53,7 @@ app.config["DISCORD_CLIENT_SECRET"] = os.getenv("DISCORD_CLIENT_SECRET")
 app.config["DISCORD_BOT_TOKEN"] = os.getenv("DISCORD_BOT_TOKEN")
 app.config["DISCORD_REDIRECT_URI"] = "https://ntsport.xyz/oauth/callback"
 
-#discord = DiscordOAuth2Session(app)
+discord = DiscordOAuth2Session(app)
   
 @app.route('/coming-soon/')
 def coming_soon():
@@ -357,6 +358,8 @@ def dashboard():
     ntaccount = data["nt_user"]
     premium = data["premium"]
     expiresIn = data["expiresIn"]
+    if expiresIn != "∞":
+      expiresIn = convert_secs(expiresIn-time.time())
     if premium == True:
       membership = 'Premium'
     else:
@@ -635,6 +638,15 @@ def login_api():
         session['login_error_message'] = "No account found with these credentials!"
         return redirect('/login')
     return
+'''
+@app.route('/veryencryptedapiendpoint/buy-premium', methods =["GET"])
+def upgrade_api():
+    form = request.form
+    premiumpurchase = form['accountToUpgrade']
+    print(premiumpurchase)
+    return
+'''
+
 
 @app.route('/veryencryptedapiendpoint/settings/password', methods=['POST'])
 def settings_password():
@@ -679,12 +691,26 @@ def comp_create():
         pass
     return render_template('/3_competitions/team_data/make_comp.html', message=message, **session)
 
-@app.route('/buy-premium/')
+@app.route('/upgrade/')
 def buypremiuminfo():
   if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
     return redirect('/coming-soon')
   else:
-    return render_template('/9_premium/buy-premium.html', **session)
+    if check_for_premium(session['username'])[0] == True:
+      return redirect('/ty-premium/')
+    else:
+      dbclient = DBClient()
+      collection = dbclient.db.accounts
+      data = dbclient.get_array(collection, {"username": session['username']})
+      ntaccount = data["nt_user"]
+      return render_template('/9_premium/upgrade.html', ntaccount=ntaccount, **session)
+
+@app.route('/postpremium', methods=['POST', 'GET'])
+def postpremium():
+  if request.method == 'POST':
+    bpremium = request.form
+    ntuser = bpremium['ntaccount']
+    return render_template('/9_premium/postpremium.html', bpremium = bpremium, ntuser=ntuser, **session)
 
 @app.route('/ty-premium/')
 def typremium():
@@ -704,6 +730,8 @@ def typremium():
     if data['premium'] != True:
       return redirect('/upgrade')
     expiresIn = data["expiresIn"]
+    if expiresIn != "∞":
+      expiresIn = convert_secs(expiresIn-time.time())
     return render_template('/9_premium/ty-premium.html', expiresIn=expiresIn, **session)
 
 
@@ -714,7 +742,7 @@ def premium():
   else:
     return render_template('/9_premium/premium.html', **session)
 
-@app.route('/upgrade/')
+'''@app.route('/upgrade/')
 def upgrade():
   if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
     return redirect('/coming-soon')
@@ -724,7 +752,7 @@ def upgrade():
     if premium[0]==True:
       return redirect('/ty-premium')
     else:
-      return render_template('/9_premium/upgrade.html', premium=premium, **session)
+      return render_template('/9_premium/upgrade.html', premium=premium, **session)'''
 
 @app.route('/lnsgames/hangman/')
 def lns_hangman():
@@ -824,7 +852,7 @@ def create_api():
     premium = premiumstatus[0]
     expiresIn = premiumstatus[1]
     startcomptime = start_timestamp
-    if premium != True and startcomptime-time.time() > 86400:
+    if premium != True and startcomptime-time.time() > 43200:
       print('no perms to create this comp')
       return redirect('/premium')
     else:
@@ -1021,8 +1049,75 @@ def bkg_player_task():
         time.sleep(60)
 
 
+@app.route('/ngth/statistics/daily')
+def team_daily_statistics():
+  if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
+    return redirect('/coming-soon')
+  else:
+    message = None
+    try:
+        message = session['create_error_message']
+    except:
+        pass
+    return render_template('/9_premium/daily-weekly/daily.html', message=message)
   
 
+@app.route('/ngth/statistics/weekly')
+def team_weekly_statistics():
+  if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
+    return redirect('/coming-soon')
+  else:
+    message = None
+    try:
+        message = session['create_error_message']
+    except:
+        pass
+    return render_template('/9_premium/daily-weekly/weekly.html', message=message)
+
+@app.route('/forms/team-daily')
+def forms_teams_daily():
+  if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
+    return redirect('/coming-soon')
+  else:
+    try:
+        if not session['logged_in']:
+            return redirect('/login')
+    except:
+        return redirect('/login')
+    message = None
+    try:
+        message = session['create_error_message']
+    except:
+        pass
+    return render_template('/9_premium/daily-weekly/stats-form-daily.html', message=message, **session)
+
+@app.route('/forms/team-weekly')
+def forms_teams_weekly():
+  if maintenance_function('maintenance', 'permission')[0] == True and maintenance_function('maintenance','permission')[1] != True:
+    return redirect('/coming-soon')
+  else:
+    try:
+        if not session['logged_in']:
+            return redirect('/login')
+    except:
+        return redirect('/login')
+    message = None
+    try:
+        message = session['create_error_message']
+    except:
+        pass
+    return render_template('/9_premium/daily-weekly/stats-form-weekly.html', message=message, **session)
+
+@app.route('/veryencryptedapiendpoint/check-cash', methods=['POST'])
+def check_cash():
+    username = session['username']
+    ntuser = (request.data).decode().replace('ntuser=',"")
+    bankaccount = BankAccount()
+    resp = bankaccount.check_cash(username, ntuser)
+    if resp:
+        return 'true'
+    else:
+        return 'false'
 def bkg_task():
     while True:
         comps, dbclient = get_all_comps(
@@ -1050,24 +1145,69 @@ def bkg_premium_task():
           collection = dbclient.db.accounts
           #print(f'{x["username"]}: {x["expiresIn"]}')
           if x["expiresIn"] != '∞':
-            if int(x["expiresIn"]) > 0:
-                expiresIn = x["expiresIn"]-1
+            if int(x["expiresIn"]) < int(time.time()):
                 query = { "premium": True, "username": x["username"] }
-                print(query)
-                new = { "$set": { "expiresIn": expiresIn } }
-                collection.update_many(query, new)
-                continue
-            else:
-                x["expiresIn"] = 0
-                x["premium"] = False
-                query = { "expiresIn": 0 }
                 new = { "$set": { "premium": False } }
-  
                 collection.update_many(query, new)
                 continue
           else:
             pass
         time.sleep(60)
+
+def bkg_receive_cash_task():
+    while True:
+        bankaccount = BankAccount()
+        bankaccount.login()
+        received = bankaccount.check_cash_received()
+        data = received['results']
+        try:
+            amount = data[0]['amount']
+            username = data[0]['username']
+        except:
+            time.sleep(10)
+            continue
+        else:
+            print("Received cash from " + str(username) + ". Amount: $"+str(amount))
+            bankaccount.cash_received(username, amount)
+        time.sleep(10)
+
+def auto_delete_comps():
+    while True:
+        dbclient = DBClient()
+        accountcollection = dbclient.db.accounts
+        compcollection = dbclient.db.justtestingsoidontmessup
+        compdata = dbclient.get_many(compcollection, {})
+        complist = []
+        endcomptimelist = []
+        authorlist = []
+        end = []
+        for comp in compdata:
+          compauthor = comp['other']['author']
+          endcomptime = comp['other']['endcomptime']
+          complist.append(compauthor)
+          endcomptimelist.append(endcomptime)
+        for account in complist:
+          acc = dbclient.get_many(accountcollection, {'username': str(account)})
+          authorlist.append(acc)
+        for accinfo in authorlist:
+          for x in accinfo:
+            if x['premium'] == True:
+              seconds = 864000
+            else:
+              seconds = 432000
+            #print('Auto Delete - '+x["username"]+': ', seconds)
+
+        for endcomptime in endcomptimelist:
+          comp = dbclient.get_many(compcollection, {'other.endcomptime': endcomptime})
+          end.append(comp)
+        for n in end:
+          for competition in n:
+            if int(competition["other"]["startcomptime"]) < int(time.time()):
+              if competition["other"]["endcomptime"] + seconds <= time.time():
+                  print(competition["compid"])
+                  compcollection.delete_one({'compid': str(competition["compid"])})
+        time.sleep(10800)
+
 
 thread = threading.Thread(target=bkg_task)
 thread.start()
@@ -1075,4 +1215,8 @@ thread1 = threading.Thread(target=player_bkg_task)
 thread1.start()
 thread2 = threading.Thread(target=bkg_premium_task)
 thread2.start()
-app.run(host='0.0.0.0')
+thread3 = threading.Thread(target=bkg_receive_cash_task)
+thread3.start()
+thread4 = threading.Thread(target=auto_delete_comps)
+thread4.start()
+app.run(host='0.0.0.0', debug=False)

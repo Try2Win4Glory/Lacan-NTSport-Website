@@ -10,7 +10,6 @@ def check_for_premium(user):
   premium = data['premium']
   expiresIn = data['expiresIn']
   return premium, expiresIn
-  
 def get_all_accounts(args):
   collection = dbclient.db.accounts
   data = dbclient.get_many(collection, {'premium': True})

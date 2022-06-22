@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+   <style>
+      html,body {
+      margin:0;
+      padding:0;
+      overflow-x:hidden;
+      }
+   </style>
+   <head>
+      {% with place="Team Statistics Form" %} {% include "general/head.html" %} {% endwith %}
+
+<div class="premium-box">
+  <h2><b>Daily Team Stats</b></h2>
+  <form action=""style="color:white;">
+    <div class="user-box">
+      <label>Team: <input type="text" placeholder="" value="" required style="color:#DAA520">
+      </label>
+    </div>
+
+    <div class="user-box">
+      <label>Daily races requirement: <input type="text" placeholder="40" value="" required style="color:#DAA520">
+      </label>
+    </div>
+
+    <div class="user-box">
+      <label>Daily WPM requirement: <input type="text" placeholder="60" value="" required style="color:#DAA520">
+      </label>
+    </div>
+
+    <div class="user-box">
+      <label>Daily accuracy requirement: <input type="text" placeholder="94" value="" required style="color:#DAA520">
+      </label>
+    </div>
+
+    <div class="user-box">
+      <label>Daily points requirement: <input type="text" placeholder="5000" value="" required style="color:#DAA520">
+      </label>
+    </div>
+    
+    <br><br>
+    <button class="glow-on-hover" type="submit">Create Daily Stats</button>
+    </form> 
+   </div>
+</div>
+
+      <hr />
+      <footer class="text-gray-400 bg-gray-900 body-font">
+         <div
+            class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col"
+            >
+            <a
+               class="flex title-font font-medium items-center md:justify-start justify-center text-white"
+               >
+            <img
+               src="https://media.discordapp.net/attachments/925374235797495829/939515277232734288/Lacan_Logo_Transparent.png"
+               width="40"
+               height="40"
+               />
+            <span class="ml-3 text-xl">Lacan</span>
+            </a>
+            <p
+               class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4"
+               >
+               © 2022 All Rights Reserved. @Lacan NTSport Team
+            </p>
+            <span
+               class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+               >
+            <a href="https://github.com/Try2Win4Glory/Lacan-NTSport" class="ml-3 text-gray-400">
+            <i class="fab fa-github"></i>
+            </a>
+            <a
+               href="https://top.gg/bot/713352863153258556/vote"
+               class="ml-3 text-gray-400"
+               >
+            <i class="fab fa-discord"></i>
+            </a>
+            </span>
+         </div>
+      </footer>
+      <noscript>
+         Please enable JavaScript in your browser, to view this page properly!
+      </noscript>
+   </body>
+</html>
+
+<style>
+   pasvelte-1wqnw5n.svelte-1wqnw5n {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    display: block;
+    text-decoration: none;
+    padding: 10px 0.5em;
+    border-radius: 7px;
+    background-color: gray;
+}
+
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    background: #111;
+    margin-left: 30%;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    color: #daa520;
+    justify-content: center;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+  
+body {
+  background-color: #111827;
+}
+label.checkbox {
+  float: left;
+  line-height: 2;
+}
+.input {
+    outline: none;
+    display: block;
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+}
+
+.premium-box {
+  position: relative;
+  margin-top: 33%;
+  margin-bottom: -20%;
+  left: 50%;
+  width: 700px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.premium-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.premium-box .user-box {
+  position: relative;
+}
+
+.premium-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+
+.invalid-contain{
+  width: 100%;
+  height: auto;
+  background-color: trnasparent;
+  border-radius: 7px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 100px;
+  color: red;
+  outline: red solid 3px;
+}
+.dropdown.svelte-1wqnw5n .dropbtn.svelte-1wqnw5n {
+    font-size: 16px;
+    color: white;
+    background-color: inherit;
+    font-family: inherit;
+    box-shadow: none;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+    padding: 14px 16px;
+    margin: 0px;
+}
+
+.dropdown.svelte-1wqnw5n.svelte-1wqnw5n {
+    float: left;
+    overflow: hidden;
+}
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content pa{
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+</style>

@@ -8,29 +8,40 @@
       }
    </style>
    <head>
-      {% with place="Upgrade" %} {% include "general/head.html" %} {% endwith %}
+      {% with place="Team Statistics Form" %} {% include "general/head.html" %} {% endwith %}
 
-<div class="login-box">
-  <h2><b>LNS PREMIUM</b></h2>
-  <form style="color:white;">
+<div class="premium-box">
+  <h2><b>Weekly Team Stats</b></h2>
+  <form action=""style="color:white;">
     <div class="user-box">
-      <label>Premium Purchase for: <input type="text" placeholder="Username" value={{session.username}} required style="color:#DAA520">
+      <label>Team: <input type="text" placeholder="" value="" required style="color:#DAA520">
       </label>
     </div>
+
     <div class="user-box">
-      <label><input type="password" placeholder="Enter your Password" required></input></label>
+      <label>Weekly races requirement: <input type="text" placeholder="200" value="" required style="color:#DAA520">
+      </label>
     </div>
+
     <div class="user-box">
-      <input type="checkbox" style="alignment:left !immportant;" required></input>I have read and agreed to our Premium Terms.
+      <label>Daily WPM requirement: <input type="text" placeholder="60" value="" required style="color:#DAA520">
+      </label>
     </div>
-    <a href="#">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Purchase 💎
-    </a>
-  </form>
+
+    <div class="user-box">
+      <label>Daily accuracy requirement: <input type="text" placeholder="94" value="" required style="color:#DAA520">
+      </label>
+    </div>
+
+    <div class="user-box">
+      <label>Weekly points requirement: <input type="text" placeholder="25000" value="" required style="color:#DAA520">
+      </label>
+    </div>
+    
+    <br><br>
+    <button class="glow-on-hover" type="submit">Create Weekly Stats</button>
+    </form> 
+   </div>
 </div>
 
       <hr />
@@ -75,7 +86,7 @@
 </html>
 
 <style>
-   a.svelte-1wqnw5n.svelte-1wqnw5n {
+   pasvelte-1wqnw5n.svelte-1wqnw5n {
     font-size: 18px;
     font-weight: bold;
     color: white;
@@ -85,8 +96,75 @@
     border-radius: 7px;
     background-color: gray;
 }
+
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    background: #111;
+    margin-left: 30%;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    color: #daa520;
+    justify-content: center;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+  
 body {
   background-color: #111827;
+}
+label.checkbox {
+  float: left;
+  line-height: 2;
 }
 .input {
     outline: none;
@@ -105,9 +183,10 @@ body {
     transition: 0.3s ease;
 }
 
-.login-box {
+.premium-box {
   position: relative;
-  margin-top: 25%;
+  margin-top: 33%;
+  margin-bottom: -20%;
   left: 50%;
   width: 700px;
   padding: 40px;
@@ -119,18 +198,18 @@ body {
   background: linear-gradient(#141e30, #243b55);
 }
 
-.login-box h2 {
+.premium-box h2 {
   margin: 0 0 30px;
   padding: 0;
   color: #fff;
   text-align: center;
 }
 
-.login-box .user-box {
+.premium-box .user-box {
   position: relative;
 }
 
-.login-box .user-box input {
+.premium-box .user-box input {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -140,113 +219,6 @@ body {
   border-bottom: 1px solid #fff;
   outline: none;
   background: transparent;
-}
-
-
-
-.login-box form a {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px;
-  color: #03e9f4;
-  font-size: 16px;
-  text-decoration: none;
-  text-align: center;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: .5s;
-  margin-top: 40px;
-  letter-spacing: 4px
-}
-
-.login-box a:hover {
-  background: #03e9f4;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4,
-              0 0 25px #03e9f4,
-              0 0 50px #03e9f4,
-              0 0 100px #03e9f4;
-}
-
-.login-box a span {
-  position: absolute;
-  display: block;
-}
-
-.login-box a span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
-  animation: btn-anim1 1s linear infinite;
-}
-
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-  50%,100% {
-    left: 100%;
-  }
-}
-
-.login-box a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s
-}
-
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-  50%,100% {
-    top: 100%;
-  }
-}
-
-.login-box a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-  50%,100% {
-    right: 100%;
-  }
-}
-
-.login-box a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,100% {
-    bottom: 100%;
-  }
 }
 
 
@@ -305,7 +277,7 @@ body {
   z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content pa{
   color: black;
   padding: 12px 16px;
   text-decoration: none;

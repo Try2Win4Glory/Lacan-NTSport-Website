@@ -8,11 +8,8 @@
       }
    </style>
    <head>
-      {% with place="User Search" %} {% include "general/head.html" %} {% endwith %}
+      {% with place="NT - Calculator" %} {% include "general/head.html" %} {% endwith %}
    </head>
-
-
-     
       <section class="text-gray-400 body-font bg-gray-900">
          <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-col text-center w-full mb-20">
@@ -20,8 +17,46 @@
                   class="flex flex-wrap w-full mb-20 flex-col items-center text-center"
                   >
                   
+<script src="JQuery/jquery.min.js"></script>
+<html><head><title></title><script src="JQuery/jquery.min.js"></script><script type="text/javascript">
+function scorecalc(type) {
+  var races = $('#races').val();
+  var wpm = 100.0 + ($('#wpm').val() / 2.0);
+  var points = $('#points').val();
+  var acc = $('#accuracy').val() / 100.0;
+  var textlen = $('#textlength').val();
+  var result = 0.0;
+  var round = { "points": 0, "accuracy": 1, "wpm": 0, "races": 0 };
 
+  if (type == "points") {
+    result = Math.round(races * wpm * acc);
+  } else if (type == "accuracy") {
+    result = 100.0 * points / (races * wpm);
+  } else if (type == "wpm") {
+    result = Math.round(2.0 * (points / (races * acc) - 100.0));
+  } else {
+    result = Math.ceil(points / (wpm * acc));
+  }
+  $('#' + type).val(result.toFixed(round[type]));
+}
+</script></head>
+<div class="table">
+                <div class="row">
 
+                    <div class="col-md-4">
+                        <div class="card" style="z-index: 1;">
+                           <div class="card-body"><h3 style="margin-bottom: 5px;font-weight: bold">NT Calculator</h3>
+    <table>
+    <tbody><tr>
+    <td>Races</td><td><input type="textarea" id="races" size="4" value="500"></td><td><input type="submit" onclick="scorecalc(&quot;races&quot;)" value="calculate"></td>
+    </tr><tr>
+    <td>Accuracy</td><td><input type="textarea" id="accuracy" size="4" value="95.0"></td><td><input type="submit" onclick="scorecalc(&quot;accuracy&quot;)" value="calculate"></td>
+    </tr><tr>
+    <td>WPM</td><td><input type="textarea" id="wpm" size="4" value="60"></td><td><input type="submit" onclick="scorecalc(&quot;wpm&quot;)" value="calculate"></td>
+    </tr><tr>
+    <td>Points</td><td><input type="textarea" id="points" size="4" value="6000"></td><td><input type="submit" onclick="scorecalc(&quot;points&quot;)" value="calculate"></td>
+    </tr></tbody></table>
+    </div></div></div></div></div>
                  
 </div>
 </body>
@@ -142,9 +177,7 @@
 .dropdown-content a:hover {background-color: #f1f1f1;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
-</style>
 
-<style>
   /* Main */
 .main {
     margin-top: 2%;
@@ -178,6 +211,91 @@
     height: 270px;
     width: 80%;
 }
-/* End */
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+table {
+    border-collapse: collapse;
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.table td, .table th {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+[type=button], [type=reset], [type=submit], button {
+    -webkit-appearance: button;
+}
+button, input {
+    overflow: visible;
+}
 </style>
 
+<script type="text/javascript">
+function scorecalc(type) {
+  var races = $('#races').val();
+  var wpm = 100.0 + ($('#wpm').val() / 2.0);
+  var points = $('#points').val();
+  var acc = $('#accuracy').val() / 100.0;
+  var textlen = $('#textlength').val();
+  var result = 0.0;
+  var round = { "points": 0, "accuracy": 1, "wpm": 0, "races": 0 };
+
+  if (type == "points") {
+    result = Math.round(races * wpm * acc);
+  } else if (type == "accuracy") {
+    result = 100.0 * points / (races * wpm);
+  } else if (type == "wpm") {
+    result = Math.round(2.0 * (points / (races * acc) - 100.0));
+  } else {
+    result = Math.ceil(points / (wpm * acc));
+  }
+  $('#' + type).val(result.toFixed(round[type]));
+}
+</script>

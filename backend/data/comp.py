@@ -176,7 +176,10 @@ def create_comp(compid, team, startcomptime, endcomptime, user, no_data):
     info = json.loads(page)
     try:
       if request.form['compdesc'] != None:
-        compdesc = request.form['compdesc']
+        if len(request.form['compdesc']) > 128:
+            compdesc = request.form['copmdesc'][:128]
+        else:
+            compdesc = request.form['compdesc']
       else:
         compdesc = "No Description has been provided."
     except:
@@ -281,6 +284,8 @@ def convert_timestamp(timestamp):
     endcomptime = dbclient.db.team_comps.find({'other.endcomptime': (timestamp)})
     converted = date.fromtimestamp(endcomptime).strftime('%d %B %Y')
     return converted
+
+  
 def delete_comp(compid, session):
     data, dbclient = get_comp_data(compid)
     creator = str(data['other']['author'])
@@ -353,4 +358,11 @@ def edit_compdesc(compdesc):
    '''data, dbclient = get_comp_data(compdesc)
     data = update_compdesc(data, dbclient)
     compdesc = []'''
-    
+
+def edit_comp(compid, **changes):
+    data, dbclient = get_comp_data(compid)
+    if changes.get('description') != None:
+        data['other']['compdesc'] = changes['description']
+    if changes.get(''):
+        return
+    return
