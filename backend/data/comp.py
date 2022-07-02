@@ -163,10 +163,10 @@ def update_comp(data, dbclient):
     #data['players'] = updated_players
     dbclient.update_array(collection, old, data)
     return data
-def create_comp(compid, team, startcomptime, endcomptime, user, no_data):
+def create_comp(compid, team, startcomptime, endcomptime, user, no_data, public=False):
     dbclient = DBClient()
     does_compid_exist = dbclient.get_array(dbclient.db.team_comps, {'compid': str(compid)})
-    if does_compid_exist:
+    if does_compid_exist and not (compid.endswith('daily') or compid.endswith('weekly') or compid.endswith('monthly')):
         return False, 'Compid already exists!'
     totalduration = int(endcomptime) - int(startcomptime)
 
@@ -188,7 +188,7 @@ def create_comp(compid, team, startcomptime, endcomptime, user, no_data):
       print(request.form['public-or-private'])
       public = True
     except:
-      public = False
+      pass
     try:
         info['results']['members']
     except:

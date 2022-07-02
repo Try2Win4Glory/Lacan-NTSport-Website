@@ -7,11 +7,12 @@ authors = ["Your Name <you@example.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 Flask = "^2.1.2"
-"NT.py" = "^4.1.5"
 dnspython = "^2.2.1"
 pymongo = "^4.1.1"
 Flask-Discord = "^0.1.69"
 bs4 = "^0.0.1"
+Flask-Limiter = "^2.4.6"
+"NT.py" = "^4.2.0"
 
 [tool.poetry.dev-dependencies]
 

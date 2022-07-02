@@ -20,7 +20,7 @@ class BankAccount:
     def get_user_id(self, racer):
 
         newdata = {}
-        response = requests.get(
+        response = self.session.get(
             f'https://www.nitrotype.com/racer/{racer}').content
         soup = BeautifulSoup(response, 'html5lib')
         for script in soup.find('head'):
@@ -63,9 +63,19 @@ class BankAccount:
         total = 0
         for doc in docs:
             total += int(doc["amount"])
-        if total >= 100000:
+        if total >= 1500000:
             dbclient.db.cash.update_many({"username":ntuser, "claimed":False}, {"$set": {"claimed":True}})
             dbclient.db.accounts.update_one({"username": username}, {"$set": {"premium":True, "expiresIn":time.time()+2592000}})
+            '''pc = dbclient.db.maintenance
+            pcdoc = pc.find({"success": True})
+            pcdoc = list(pcdoc)
+            for x in pcdoc:
+              pc.find({"premium-users": x})
+              p = int(x)
+            for doc in pc:
+              for x in doc:
+                doc[x] = int(doc[x])
+            pc.update_one(pcdoc, {"$set": {"premium-users":p+1}})'''
             return True
         else:
             return False

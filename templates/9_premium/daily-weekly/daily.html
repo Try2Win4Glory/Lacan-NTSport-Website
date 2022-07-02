@@ -8,12 +8,12 @@
       }
    </style>
    <head>
-      {% with place="NGTH Daily Statistics" %} {% include "general/head.html" %} {% endwith %}
+      {% with place=team+" Daily Statistics" %} {% include "general/head.html" %} {% endwith %}
      <section class="text-gray-400 body-font bg-gray-900">
          <div class="container px-5 py-10 mx-auto">
             <div class="flex flex-col text-center w-full mb-20">
         
-<h1><center><p style="color:white">Team <b>NGTH</b> Daily Statistics</h1></center></p>
+<h1><center><p style="color:white">Team <b>{{team}}</b> Daily Statistics</h1></center></p>
 <h4><center><p style="color:white;font-style: italic">Last Updated: <a style="color:red">4 minutes ago</a></p></center></h4>
  <h3><center><p style="color:white">Time Left: <a 
   style="color:red">{hours}:{minutes}:{seconds}</a></p>      </center></h3><br></br>

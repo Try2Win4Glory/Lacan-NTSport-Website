@@ -47,8 +47,14 @@ def update_player_comp(data, dbclient):
             x['accuracy'] = 100-(((x['ending-errs']-x['starting-errs'])/(x['ending-typed']-x['starting-typed']))*100)
         except:
             x['accuracy'] = 0
-        x['points'] = x['ending-points'] - x['starting-points']
-        x['total-races'] = x['ending-races'] - x['starting-races']
+        try:
+            x['points'] = x['ending-points'] - x['starting-points']
+        except:
+            x['points'] = 0
+        try:
+            x['total-races'] = x['ending-races'] - x['starting-races']
+        except:
+            x['total-races'] = 0
         newdata.append(x)
         #team_cached[tag] = [team_data['season'], time.time()]
     data['players'] = newdata
@@ -72,7 +78,10 @@ def add_player(username, compid):
     
     people_by_name = build_dict(lst, key="username")
     szn_data = people_by_name.get(username)
-    #print(szn_data)
+    for key in szn_data:
+        if szn_data[key] == None:
+            szn_data[key] = 0
+    print(szn_data)
     x = {"username": username}
     x['starting-races'] = szn_data['played']
     x["starting-typed"] = szn_data['typed']

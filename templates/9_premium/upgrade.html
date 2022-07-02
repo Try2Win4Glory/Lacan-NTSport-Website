@@ -9,26 +9,29 @@
    </style>
    <head>
       {% with place="Upgrade" %} {% include "general/head.html" %} {% endwith %}
-
+<br><br><br><br><br>
 <div class="login-box">
   <h2><b>LNS PREMIUM</b></h2>
   <form action="https://ntsport.xyz/postpremium" method="POST" style="color:white;">
     <div class="user-box">
-      <label>Premium Purchase for: <input type="text" placeholder="Username" name="accountToUpgrade" value={{session.username}} required style="color:#DAA520">
+      <label>Premium Purchase for: <input type="text" placeholder="Username" name="accountToUpgrade" value={{session.username}} required readonly style="color:#DAA520">
       </label>
     </div>
     <div class="user-box">
-      <label><input type="text" readonly value={{ntaccount}} name="ntaccount"></input></label>
+      <label>Your Nitrotype Account: <input style="color: red;" type="text" readonly value={{ntaccount}} name="ntaccount"></input></label>
     </div>
     
     <!--div class="user-box">
       <label><input type="password" placeholder="Enter your Password" required></input></label>
   </div-->  
     <label class='checkbox'>
-      <input type='checkbox' value='TRUE' required title="I have read and agreed to our Premium Terms." /> I have read and agreed to our <a href="/premium-terms/">Premium Terms</a></input>
-<br><h4><p style="font-style: italic">* For this to process through and receive premium features, send <b>$1,000,000</b> to <a href="https://www.nitrotype.com/racer/almightyone1/"> this</a> account.</h4>
+      <!--input type='checkbox' value='TRUE' required title="I have read and agreed to our Premium Terms." /> I have read and agreed to our <a href="/premium-terms/">Premium Terms</a></input-->
+<input type='checkbox' value='TRUE' required title="Agree to NT Account"> I take full responsibility that the Nitro Type Account in the field above (<a href="https://nitrotype.com/racer/{{ntaccount}}" target="_blank" style="color: red;">{{ntaccount}}</a>) resembles the <b>Username</b> of my actual Account on Nitro Type. In case I haven't entered the account Username correctly upon signing up, I accept that the Website Account <b style="color: red;">{{session.username}}</b> is not eligible for a Premium purchase and no money will be refunded if I still attempt to subscribe to Premium.</input>
+<br><br>
+<input type='checkbox' value='TRUE' required title="I agree to receiving a month of premium benefits for $1,500,000 only. I accept that this is a contract between Lacan NTSport and me and that the plan cannot be cancelled or switched in any other way during this month." /> I agree to receiving a month of premium benefits for $1,500,000 only. I accept that this is a contract between Lacan NTSport and me and that the plan cannot be cancelled or switched in any other way during this month.</input>
+      
+<br><h4><p style="font-style: italic"><br>To proceed and receive premium benefits, send <b style="color: #DAA520;">$1,500,000</b> to <a href="https://www.nitrotype.com/racer/almightyone1/" style="color:red" target="_blank"> this</a> account.</h4>
     </label>
-    <br><br>
     <button class="glow-on-hover" type="submit">PURCHASE PREMIUM 💎</button>
     </form> 
    </div>
@@ -175,7 +178,7 @@ label.checkbox {
 
 .login-box {
   position: relative;
-  margin-top: 25%;
+  margin-top: 30%;
   left: 50%;
   width: 700px;
   padding: 40px;

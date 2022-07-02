@@ -12,12 +12,12 @@
 
 <div class="premium-box">
   <h2><b>Daily Team Stats</b></h2>
-  <form action=""style="color:white;">
+  <form action="/veryencryptedapiendpoint/daily/create"style="color:white;" method='post'>
     <div class="user-box">
-      <label>Team: <input type="text" placeholder="" value="" required style="color:#DAA520">
+      <label>Team: <input type="text" placeholder="" value="" required style="color:#DAA520" name="team">
       </label>
     </div>
-
+    <!--
     <div class="user-box">
       <label>Daily races requirement: <input type="text" placeholder="40" value="" required style="color:#DAA520">
       </label>
@@ -37,7 +37,7 @@
       <label>Daily points requirement: <input type="text" placeholder="5000" value="" required style="color:#DAA520">
       </label>
     </div>
-    
+    -->
     <br><br>
     <button class="glow-on-hover" type="submit">Create Daily Stats</button>
     </form> 
